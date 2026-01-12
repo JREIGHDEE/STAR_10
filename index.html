@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Aesthetic Scrapbook</title>
-    <!-- Icons and Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #f4efea;
+            --bg-color: #f7f3f0;
             --paper-color: #fffdfa;
             --tab-1: #ffadad;
             --tab-2: #ffd6a5;
@@ -35,7 +34,7 @@
             color: var(--text-dark);
         }
 
-        /* 1. GREETING ANIMATION */
+        /* GREETING ANIMATION */
         .greeting-overlay {
             position: fixed;
             inset: 0;
@@ -63,30 +62,32 @@
             to { opacity: 0; visibility: hidden; }
         }
 
-        /* 2. DYNAMIC HEADER */
+        /* HEADER */
         .main-header {
             font-family: 'Caveat', cursive;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 2.8rem;
+            margin-bottom: 25px;
             color: var(--text-dark);
-            transition: 0.5s;
         }
 
-        /* 3. THE BOOK */
+        /* THE BOOK */
         .book {
             width: 90%;
-            max-width: 650px;
+            max-width: 600px;
             height: 450px;
             background: var(--paper-color);
-            border-radius: 10px 40px 40px 10px;
+            border-radius: 10px 30px 30px 10px;
             display: flex;
             position: relative;
-            box-shadow: 15px 15px 40px rgba(0,0,0,0.08), 
-                        inset 10px 0 15px rgba(0,0,0,0.05);
+            /* Extra shadow for the 'back cover' */
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.1),
+                10px 0 0px -2px #ebe7e0, /* Back cover peek */
+                12px 0 15px -2px rgba(0,0,0,0.1);
             border: 1px solid rgba(0,0,0,0.05);
         }
 
-        /* Spine shadow */
+        /* Binding/Spine Line */
         .book::before {
             content: '';
             position: absolute;
@@ -94,38 +95,45 @@
             top: 0;
             bottom: 0;
             width: 1px;
-            background: rgba(0,0,0,0.1);
+            background: rgba(0,0,0,0.08);
         }
 
-        /* 4. ICON TABS */
-        .tabs {
+        /* TAB CONTAINER - Positioned to the right of the book */
+        .tabs-container {
             position: absolute;
-            right: -60px;
-            top: 50px;
+            left: 100%; /* Puts the container at the very edge of the book */
+            top: 30px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
+            z-index: -1; /* Tucks them slightly behind the book edge */
         }
 
         .tab-btn {
-            width: 50px;
+            width: 55px; /* Base width */
             height: 50px;
             border: none;
-            border-radius: 0 25px 25px 0;
+            border-radius: 0 15px 15px 0; /* Rounds only the outside corners */
             cursor: pointer;
             display: flex;
             align-items: center;
-            padding: 0 15px;
+            padding: 0 18px;
+            color: #444;
+            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 3px 2px 5px rgba(0,0,0,0.05);
             overflow: hidden;
-            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s;
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.05);
             white-space: nowrap;
+        }
+
+        /* Expanding outside of the book */
+        .tab-btn:hover {
+            width: 150px; 
+            padding-left: 25px; /* Slight push on hover */
         }
 
         .tab-btn i {
             font-size: 1.2rem;
-            min-width: 20px;
-            color: #444;
+            min-width: 25px;
         }
 
         .tab-label {
@@ -133,35 +141,31 @@
             font-family: 'Quicksand', sans-serif;
             font-weight: 600;
             opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        /* Hover Reveal Effect */
-        .tab-btn:hover {
-            width: 140px;
+            transition: opacity 0.2s;
         }
 
         .tab-btn:hover .tab-label {
             opacity: 1;
         }
 
+        /* Tab Colors */
         .btn-1 { background: var(--tab-1); }
         .btn-2 { background: var(--tab-2); }
         .btn-3 { background: var(--tab-3); }
         .btn-4 { background: var(--tab-4); }
         .btn-5 { background: var(--tab-5); }
 
+        /* Active State */
         .tab-btn.active {
-            width: 60px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-            border: 2px solid white;
+            width: 70px; /* Stays slightly popped out */
+            box-shadow: inset 5px 0 10px rgba(0,0,0,0.1);
         }
 
-        /* 5. PAGES */
+        /* CONTENT */
         .content-area {
             flex: 1;
             padding: 50px 60px;
-            position: relative;
+            overflow-y: auto;
         }
 
         .page {
@@ -169,47 +173,48 @@
             line-height: 2.2rem;
             background-image: linear-gradient(#f0f0f0 1px, transparent 1px);
             background-size: 100% 2.2rem;
-            animation: fadeInPage 0.6s ease;
+            animation: fadeInPage 0.5s ease;
         }
 
         .page.active { display: block; }
 
         .page h2 {
             font-family: 'Caveat', cursive;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             margin: 0 0 10px 0;
-            color: #333;
+            color: #444;
         }
 
         .page p {
             margin: 0;
-            font-size: 1.05rem;
-            color: #555;
+            font-size: 1.1rem;
+            color: #666;
         }
 
         @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        /* Cute Washi Tape Decoration */
+        /* Washi Tape Decoration */
         .tape {
             position: absolute;
-            top: -10px;
+            top: -15px;
             left: 50%;
-            transform: translateX(-50%) rotate(-2deg);
-            width: 100px;
-            height: 30px;
-            background: rgba(255, 173, 173, 0.5);
+            transform: translateX(-50%) rotate(1deg);
+            width: 110px;
+            height: 35px;
+            background: rgba(255, 214, 165, 0.6);
             backdrop-filter: blur(2px);
-            border-left: 2px dashed rgba(255,255,255,0.5);
-            border-right: 2px dashed rgba(255,255,255,0.5);
+            border-left: 2px dashed rgba(255,255,255,0.4);
+            border-right: 2px dashed rgba(255,255,255,0.4);
+            z-index: 2;
         }
     </style>
 </head>
 <body>
 
-    <!-- Hello Animation -->
+    <!-- Greeting Animation -->
     <div class="greeting-overlay">
         <h1>hello...</h1>
     </div>
@@ -223,31 +228,26 @@
         
         <div class="content-area">
             
-            <!-- Page 1 -->
             <div class="page active" id="page-1">
                 <h2><i class="fa-solid fa-sun" style="color: #ff8b8b;"></i> Daily Morning</h2>
                 <p>The sun peeked through the curtains today. I realized that happiness is just a series of small, cozy moments. Today's goal is to stay hydrated and be kind to myself.</p>
             </div>
 
-            <!-- Page 2 -->
             <div class="page" id="page-2">
                 <h2><i class="fa-solid fa-moon" style="color: #f7b267;"></i> Dream Scraps</h2>
                 <p>Last night, I dreamt of a library that floated on water. Every time you turned a page, the room changed color. I woke up feeling very inspired to create something new.</p>
             </div>
 
-            <!-- Page 3 -->
             <div class="page" id="page-3">
                 <h2><i class="fa-solid fa-plane" style="color: #d8e23f;"></i> Wanderlust</h2>
                 <p>I want to visit a small town in Italy where the houses are painted like oranges and lemons. I can almost smell the sea salt and fresh pasta from here.</p>
             </div>
 
-            <!-- Page 4 -->
             <div class="page" id="page-4">
                 <h2><i class="fa-solid fa-lightbulb" style="color: #74c67a;"></i> Spark Ideas</h2>
                 <p>What if I started a collection of pressed flowers? Or learned how to bake those tiny star-shaped cookies? The world is full of hobbies waiting to be discovered.</p>
             </div>
 
-            <!-- Page 5 -->
             <div class="page" id="page-5">
                 <h2><i class="fa-solid fa-heart" style="color: #6da1f2;"></i> Heart Talk</h2>
                 <p>Reminder: You don't have to be productive every second of the day. It is perfectly okay to just 'be'. You are enough exactly as you are right now.</p>
@@ -255,8 +255,8 @@
 
         </div>
 
-        <!-- Sidebar Icons -->
-        <div class="tabs">
+        <!-- TABS OPENING OUTSIDE -->
+        <div class="tabs-container">
             <button class="tab-btn btn-1 active" onclick="openPage(event, 'page-1')">
                 <i class="fa-solid fa-sun"></i>
                 <span class="tab-label">Daily</span>
@@ -281,26 +281,24 @@
     </div>
 
     <script>
-        let hasReadFirst = false;
+        let hasReadSomething = false;
 
         function openPage(evt, pageId) {
-            // Change Header Text logic
-            if (!hasReadFirst && pageId !== 'page-1') {
+            // Header Text Logic
+            if (!hasReadSomething && pageId !== 'page-1') {
                 document.getElementById('header-text').innerText = "What will you read next?";
-                hasReadFirst = true;
-            } else if (hasReadFirst) {
+                hasReadSomething = true;
+            } else if (hasReadSomething) {
                 document.getElementById('header-text').innerText = "What will you read next?";
             }
 
-            // Hide all pages
+            // Page Switching Logic
             const pages = document.querySelectorAll('.page');
             pages.forEach(p => p.classList.remove('active'));
 
-            // Remove active button styling
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(b => b.classList.remove('active'));
 
-            // Show selected page
             document.getElementById(pageId).classList.add('active');
             evt.currentTarget.classList.add('active');
         }
