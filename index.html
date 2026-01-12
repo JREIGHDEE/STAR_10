@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Aesthetic Scrapbook</title>
+    <!-- Icons and Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #f0ebe3;
-            --paper-color: #fffdf7;
-            --spine-color: #d1ccc0;
+            --bg-color: #f4efea;
+            --paper-color: #fffdfa;
             --tab-1: #ffadad;
             --tab-2: #ffd6a5;
             --tab-3: #fdffb6;
             --tab-4: #caffbf;
             --tab-5: #a0c4ff;
-            --text-dark: #4a4a4a;
+            --text-dark: #5d576b;
         }
 
         * { box-sizing: border-box; }
@@ -26,6 +27,7 @@
             background-color: var(--bg-color);
             font-family: 'Quicksand', sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -34,7 +36,7 @@
         }
 
         /* 1. GREETING ANIMATION */
-        .greeting {
+        .greeting-overlay {
             position: fixed;
             inset: 0;
             background: white;
@@ -42,78 +44,106 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            animation: fadeOut 1s ease forwards 2s;
+            animation: fadeOut 0.8s ease forwards 2s;
         }
 
-        .greeting h1 {
+        .greeting-overlay h1 {
             font-family: 'Caveat', cursive;
             font-size: 5rem;
             color: var(--tab-1);
-            animation: float 2s ease-in-out infinite;
+            animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         @keyframes fadeOut {
             to { opacity: 0; visibility: hidden; }
         }
 
-        /* 2. THE BOOK CONTAINER */
+        /* 2. DYNAMIC HEADER */
+        .main-header {
+            font-family: 'Caveat', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            transition: 0.5s;
+        }
+
+        /* 3. THE BOOK */
         .book {
             width: 90%;
-            max-width: 700px;
-            height: 500px;
+            max-width: 650px;
+            height: 450px;
             background: var(--paper-color);
-            border-radius: 10px 30px 30px 10px;
+            border-radius: 10px 40px 40px 10px;
             display: flex;
             position: relative;
-            box-shadow: 20px 20px 60px rgba(0,0,0,0.1), 
-                        inset 15px 0 20px rgba(0,0,0,0.05);
+            box-shadow: 15px 15px 40px rgba(0,0,0,0.08), 
+                        inset 10px 0 15px rgba(0,0,0,0.05);
             border: 1px solid rgba(0,0,0,0.05);
         }
 
-        /* The "Spine" of the book */
+        /* Spine shadow */
         .book::before {
             content: '';
             position: absolute;
-            left: 20px;
+            left: 25px;
             top: 0;
             bottom: 0;
-            width: 2px;
-            background: rgba(0,0,0,0.05);
-            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+            width: 1px;
+            background: rgba(0,0,0,0.1);
         }
 
-        /* 3. SIDE TABS (The 5 Buttons) */
+        /* 4. ICON TABS */
         .tabs {
             position: absolute;
-            right: -50px;
-            top: 40px;
+            right: -60px;
+            top: 50px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
         }
 
         .tab-btn {
-            width: 80px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border: none;
-            border-radius: 0 10px 10px 0;
+            border-radius: 0 25px 25px 0;
             cursor: pointer;
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 600;
-            font-size: 0.8rem;
-            transition: 0.3s;
-            text-align: left;
-            padding-left: 15px;
-            box-shadow: 5px 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            overflow: hidden;
+            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.05);
+            white-space: nowrap;
         }
 
-        .tab-btn:hover { padding-left: 25px; width: 90px; }
-        .tab-btn.active { width: 100px; padding-left: 30px; font-weight: bold; }
+        .tab-btn i {
+            font-size: 1.2rem;
+            min-width: 20px;
+            color: #444;
+        }
+
+        .tab-label {
+            margin-left: 15px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Hover Reveal Effect */
+        .tab-btn:hover {
+            width: 140px;
+        }
+
+        .tab-btn:hover .tab-label {
+            opacity: 1;
+        }
 
         .btn-1 { background: var(--tab-1); }
         .btn-2 { background: var(--tab-2); }
@@ -121,131 +151,156 @@
         .btn-4 { background: var(--tab-4); }
         .btn-5 { background: var(--tab-5); }
 
-        /* 4. PAGES CONTENT */
+        .tab-btn.active {
+            width: 60px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            border: 2px solid white;
+        }
+
+        /* 5. PAGES */
         .content-area {
             flex: 1;
-            padding: 40px 60px;
-            overflow-y: auto;
+            padding: 50px 60px;
             position: relative;
         }
 
-        /* Notebook Paper Lines */
         .page {
             display: none;
-            animation: pageFlip 0.5s ease;
-            background-image: linear-gradient(#e5e5e5 1px, transparent 1px);
-            background-size: 100% 2.5rem;
-            line-height: 2.5rem;
+            line-height: 2.2rem;
+            background-image: linear-gradient(#f0f0f0 1px, transparent 1px);
+            background-size: 100% 2.2rem;
+            animation: fadeInPage 0.6s ease;
         }
 
         .page.active { display: block; }
 
         .page h2 {
             font-family: 'Caveat', cursive;
-            font-size: 2.5rem;
-            margin: 0;
-            color: #555;
-            line-height: 3rem;
+            font-size: 2.2rem;
+            margin: 0 0 10px 0;
+            color: #333;
         }
 
         .page p {
-            font-size: 1.1rem;
             margin: 0;
-            font-family: 'Quicksand', sans-serif;
-            color: #666;
+            font-size: 1.05rem;
+            color: #555;
         }
 
-        @keyframes pageFlip {
-            from { opacity: 0; transform: rotateY(-10deg) translateX(20px); }
-            to { opacity: 1; transform: rotateY(0) translateX(0); }
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Decoration */
-        .washi-tape {
+        /* Cute Washi Tape Decoration */
+        .tape {
             position: absolute;
-            top: 20px;
-            right: 40px;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
             width: 100px;
             height: 30px;
-            background: rgba(160, 196, 255, 0.4);
-            transform: rotate(5deg);
-            opacity: 0.6;
+            background: rgba(255, 173, 173, 0.5);
+            backdrop-filter: blur(2px);
+            border-left: 2px dashed rgba(255,255,255,0.5);
+            border-right: 2px dashed rgba(255,255,255,0.5);
         }
     </style>
 </head>
 <body>
 
-    <!-- Greeting Animation -->
-    <div class="greeting">
+    <!-- Hello Animation -->
+    <div class="greeting-overlay">
         <h1>hello...</h1>
     </div>
 
+    <!-- Dynamic Header -->
+    <h1 class="main-header" id="header-text">What will you read first?</h1>
+
     <!-- The Scrapbook -->
     <div class="book">
-        <div class="washi-tape"></div>
+        <div class="tape"></div>
         
         <div class="content-area">
             
-            <!-- Entry 1 -->
+            <!-- Page 1 -->
             <div class="page active" id="page-1">
-                <h2>Daily Gratitude</h2>
-                <p>Today was a lovely day. I drank a warm latte and watched the clouds move slowly. I am grateful for the quiet moments and the soft aesthetic of this new journal.</p>
-                <p>Note to self: Stay cozy.</p>
+                <h2><i class="fa-solid fa-sun" style="color: #ff8b8b;"></i> Daily Morning</h2>
+                <p>The sun peeked through the curtains today. I realized that happiness is just a series of small, cozy moments. Today's goal is to stay hydrated and be kind to myself.</p>
             </div>
 
-            <!-- Entry 2 -->
+            <!-- Page 2 -->
             <div class="page" id="page-2">
-                <h2>Dream Log</h2>
-                <p>I dreamed I was walking through a forest where the leaves were made of velvet. Everything was pastel pink. I felt so light, almost like I was floating above the grass.</p>
+                <h2><i class="fa-solid fa-moon" style="color: #f7b267;"></i> Dream Scraps</h2>
+                <p>Last night, I dreamt of a library that floated on water. Every time you turned a page, the room changed color. I woke up feeling very inspired to create something new.</p>
             </div>
 
-            <!-- Entry 3 -->
+            <!-- Page 3 -->
             <div class="page" id="page-3">
-                <h2>Travel Bucket List</h2>
-                <p>1. Kyoto in the Spring (Cherry Blossoms)<br>
-                2. A small cottage in Switzerland<br>
-                3. The library cafes in Seoul<br>
-                4. Sunset in Santorini</p>
+                <h2><i class="fa-solid fa-plane" style="color: #d8e23f;"></i> Wanderlust</h2>
+                <p>I want to visit a small town in Italy where the houses are painted like oranges and lemons. I can almost smell the sea salt and fresh pasta from here.</p>
             </div>
 
-            <!-- Entry 4 -->
+            <!-- Page 4 -->
             <div class="page" id="page-4">
-                <h2>Midnight Ideas</h2>
-                <p>Maybe I should start a garden? Just small succulents and some lavender on the windowsill. The purple would look so pretty against the morning light.</p>
+                <h2><i class="fa-solid fa-lightbulb" style="color: #74c67a;"></i> Spark Ideas</h2>
+                <p>What if I started a collection of pressed flowers? Or learned how to bake those tiny star-shaped cookies? The world is full of hobbies waiting to be discovered.</p>
             </div>
 
-            <!-- Entry 5 -->
+            <!-- Page 5 -->
             <div class="page" id="page-5">
-                <h2>Self Affirmations</h2>
-                <p>I am doing my best, and that is enough.<br>
-                My creativity has no limits.<br>
-                I deserve peace and beautiful things.<br>
-                Today is a fresh start.</p>
+                <h2><i class="fa-solid fa-heart" style="color: #6da1f2;"></i> Heart Talk</h2>
+                <p>Reminder: You don't have to be productive every second of the day. It is perfectly okay to just 'be'. You are enough exactly as you are right now.</p>
             </div>
 
         </div>
 
-        <!-- The 5 Interactive Tabs -->
+        <!-- Sidebar Icons -->
         <div class="tabs">
-            <button class="tab-btn btn-1 active" onclick="openPage(event, 'page-1')">Daily</button>
-            <button class="tab-btn btn-2" onclick="openPage(event, 'page-2')">Dreams</button>
-            <button class="tab-btn btn-3" onclick="openPage(event, 'page-3')">Travel</button>
-            <button class="tab-btn btn-4" onclick="openPage(event, 'page-4')">Ideas</button>
-            <button class="tab-btn btn-5" onclick="openPage(event, 'page-5')">Me</button>
+            <button class="tab-btn btn-1 active" onclick="openPage(event, 'page-1')">
+                <i class="fa-solid fa-sun"></i>
+                <span class="tab-label">Daily</span>
+            </button>
+            <button class="tab-btn btn-2" onclick="openPage(event, 'page-2')">
+                <i class="fa-solid fa-moon"></i>
+                <span class="tab-label">Dreams</span>
+            </button>
+            <button class="tab-btn btn-3" onclick="openPage(event, 'page-3')">
+                <i class="fa-solid fa-plane"></i>
+                <span class="tab-label">Travel</span>
+            </button>
+            <button class="tab-btn btn-4" onclick="openPage(event, 'page-4')">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span class="tab-label">Ideas</span>
+            </button>
+            <button class="tab-btn btn-5" onclick="openPage(event, 'page-5')">
+                <i class="fa-solid fa-heart"></i>
+                <span class="tab-label">Heart</span>
+            </button>
         </div>
     </div>
 
     <script>
+        let hasReadFirst = false;
+
         function openPage(evt, pageId) {
+            // Change Header Text logic
+            if (!hasReadFirst && pageId !== 'page-1') {
+                document.getElementById('header-text').innerText = "What will you read next?";
+                hasReadFirst = true;
+            } else if (hasReadFirst) {
+                document.getElementById('header-text').innerText = "What will you read next?";
+            }
+
             // Hide all pages
             const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
+            pages.forEach(p => p.classList.remove('active'));
 
-            // Remove active class from all buttons
+            // Remove active button styling
             const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
+            buttons.forEach(b => b.classList.remove('active'));
 
-            // Show the current page and add active class to button
+            // Show selected page
             document.getElementById(pageId).classList.add('active');
             evt.currentTarget.classList.add('active');
         }
