@@ -11,11 +11,11 @@
         :root {
             --bg-color: #fcf8f5;
             --paper-color: #fffdfa;
-            --tab-1: #ffadad; /* Pink */
-            --tab-2: #ffd6a5; /* Orange */
-            --tab-3: #fdffb6; /* Yellow */
-            --tab-4: #caffbf; /* Green */
-            --tab-5: #a0c4ff; /* Blue */
+            --tab-1: #ffadad; /* Holidays - Pink */
+            --tab-2: #ffd6a5; /* Missing - Orange */
+            --tab-3: #fdffb6; /* Understand - Yellow */
+            --tab-4: #caffbf; /* Always - Green */
+            --tab-5: #a0c4ff; /* Melody - Blue */
             --text-dark: #5d576b;
         }
 
@@ -94,7 +94,7 @@
             transform: rotate(-5deg);
         }
 
-        /* 3. THE FIRST MESSAGE MODAL */
+        /* 3. FIRST MESSAGE MODAL */
         .letter-modal {
             position: fixed;
             top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
@@ -135,8 +135,8 @@
 
         .book {
             width: 100%;
-            max-width: 850px; /* Bigger */
-            height: 650px;    /* Bigger */
+            max-width: 850px;
+            height: 650px;
             background: var(--paper-color);
             border-radius: 15px 50px 50px 15px;
             display: flex;
@@ -159,13 +159,13 @@
         .page h2 { font-family: 'Caveat', cursive; font-size: 2.8rem; margin-bottom: 20px; color: var(--text-dark); }
         .page p { text-align: justify; line-height: 2rem; margin-bottom: 20px; white-space: pre-line; }
 
-        /* Cover/Welcome Page */
-        .welcome-page {
+        /* Cover/Welcome Page Styling */
+        .welcome-page-content {
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             height: 100%; text-align: center;
         }
-        .welcome-page h2 { font-size: 5rem; color: var(--tab-1); }
+        .welcome-page-content h2 { font-size: 5rem; color: var(--tab-1); font-family: 'Caveat', cursive; }
 
         /* 6. TABS (OUTWARD) */
         .tabs-container {
@@ -184,7 +184,7 @@
             overflow: hidden; white-space: nowrap;
             box-shadow: 6px 3px 15px rgba(0,0,0,0.05);
         }
-        .tab-btn:hover { width: 170px; }
+        .tab-btn:hover { width: 175px; }
         .tab-label { margin-left: 15px; opacity: 0; transition: 0.3s; font-weight: 600; font-size: 1rem; }
         .tab-btn:hover .tab-label { opacity: 1; }
         .tab-btn.active { transform: translateX(10px); border: 2px solid white; border-left: none; }
@@ -197,7 +197,7 @@
 
         /* 7. ASSETS */
         .entry-image {
-            width: 100%; height: 300px;
+            width: 100%; height: 320px;
             background: #f0f0f0; margin-bottom: 30px;
             border-radius: 15px; border: 10px solid white;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
@@ -254,15 +254,17 @@
         <div class="book">
             <div class="content-area">
                 
-                <!-- COVER PAGE -->
-                <div class="page active welcome-page" id="welcome-page">
-                    <h2>Hello! :333</h2>
-                    <p style="text-align: center;">Pick a tab on the right to read our entries...</p>
+                <!-- COVER PAGE (Goes away when any tab is clicked) -->
+                <div class="page active" id="welcome-page">
+                    <div class="welcome-page-content">
+                        <h2>Hello! :333</h2>
+                        <p style="text-align: center;">Pick a tab on the right to read our entries...</p>
+                    </div>
                 </div>
 
                 <!-- 1. HOLIDAYS -->
                 <div class="page" id="page-1">
-                    <div class="entry-image" style="background-image: url('YOUR_IMAGE_HERE');">
+                    <div class="entry-image" style="background-image: url('ADD_YOUR_IMAGE_LINK_HERE');">
                         <span style="color:#aaa; font-style:italic;">[Add Holiday Photo Here]</span>
                     </div>
                     <h2>Holidays</h2>
@@ -297,7 +299,7 @@
 
                 <!-- 3. UNDERSTAND -->
                 <div class="page" id="page-3">
-                    <div class="entry-image" style="background-image: url('YOUR_IMAGE_HERE');">
+                    <div class="entry-image" style="background-image: url('ADD_YOUR_IMAGE_LINK_HERE');">
                         <span style="color:#aaa; font-style:italic;">[Add Understand Photo Here]</span>
                     </div>
                     <h2>Understand</h2>
@@ -375,7 +377,7 @@
 
             </div>
 
-            <!-- TABS -->
+            <!-- TABS (OUTWARD) -->
             <div class="tabs-container">
                 <button class="tab-btn btn-1" onclick="openPage(event, 'page-1', 'Holidays')" onmouseenter="peekTitle('Holidays')" onmouseleave="revertTitle()">
                     <i class="fa-solid fa-holly-berry"></i><span class="tab-label">Holidays</span>
@@ -423,12 +425,15 @@
             currentPrompt = "What will you read next?";
             header.innerText = currentPrompt;
             
+            // This selects all elements with class "page" and removes "active"
+            // This includes the #welcome-page (Hello! :333)
             const pages = document.querySelectorAll('.page');
             pages.forEach(p => p.classList.remove('active'));
 
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(b => b.classList.remove('active'));
 
+            // Show the clicked entry
             document.getElementById(pageId).classList.add('active');
             evt.currentTarget.classList.add('active');
         }
