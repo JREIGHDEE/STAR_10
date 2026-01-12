@@ -3,183 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10 Months | Vintage Scrapbook</title>
+    <title>10 Months | Vintage Archive</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --table-color: #2c1e14;
-            --paper-aged: #fdf5e6;
-            --ink: #3d2b1f;
-            --tab-1: #ffb7b2; /* Pastel Pink */
-            --tab-2: #ffdac1; /* Pastel Orange */
-            --tab-3: #e2f0cb; /* Pastel Green */
-            --tab-4: #b5ead7; /* Pastel Mint */
-            --tab-5: #c7ceea; /* Pastel Blue */
-            --ribbon: #d4a373;
+            --desk: #1a120b;
+            --paper: #f4ecd8;
+            --leather: #3c2a21;
+            --ink: #2d241e;
+            /* Muted Vintage Pastel Palette */
+            --v-pink: #d4a5a5;
+            --v-orange: #d4b499;
+            --v-green: #9aae95;
+            --v-mint: #92b4a7;
+            --v-blue: #8e9aaf;
+            --gold: #c5a059;
         }
 
         * { box-sizing: border-box; }
 
-        /* 1. VINTAGE DESK BACKGROUND */
         body {
             margin: 0;
             min-height: 100vh;
-            background: var(--table-color);
+            background: var(--desk);
             background-image: 
-                linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%),
                 url('https://www.transparenttextures.com/patterns/dark-wood.png');
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Quicksand', sans-serif;
             overflow: hidden;
-            perspective: 1000px;
+            color: var(--paper);
         }
 
-        /* Desk Decorations */
-        .decoration { position: fixed; pointer-events: none; opacity: 0.8; z-index: 1; filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.5)); }
-        .coffee { bottom: 50px; left: 50px; font-size: 8rem; color: #fdf5e6; transform: rotate(-10deg); animation: steam 3s ease-in-out infinite; }
-        .lavender { top: 50px; right: 50px; font-size: 6rem; color: #b5ead7; transform: rotate(15deg); }
-        
-        @keyframes steam {
-            0%, 100% { transform: rotate(-10deg) translateY(0); opacity: 0.6; }
-            50% { transform: rotate(-10deg) translateY(-10px); opacity: 0.9; }
+        /* DUST MOTES ANIMATION */
+        .dust {
+            position: fixed;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.1;
+            pointer-events: none;
+            animation: floatDust 20s linear infinite;
+        }
+        @keyframes floatDust {
+            0% { transform: translateY(100vh) translateX(0); }
+            100% { transform: translateY(-10vh) translateX(100px); }
         }
 
-        /* 2. GREETING */
+        /* 1. GREETING */
         .greeting-overlay {
             position: fixed; inset: 0; background: #fff;
             display: flex; justify-content: center; align-items: center;
             z-index: 10000; animation: fadeOut 1s ease forwards 2.5s;
         }
         .greeting-overlay h1 {
-            font-family: 'Caveat', cursive; font-size: 6rem; color: var(--tab-1);
+            font-family: 'Caveat', cursive; font-size: 6rem; color: var(--v-pink);
             animation: popIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
         @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
 
-        /* 3. STAGE 1: THE VINTAGE PARCEL */
+        /* 2. STAGE 1: THE VINTAGE PARCEL */
         #anniversary-screen { z-index: 10; display: flex; flex-direction: column; align-items: center; }
         .parcel {
-            width: 320px; height: 420px; background: #e9dcc9;
-            border-radius: 5px; position: relative; cursor: pointer;
-            box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
-            transition: 0.5s; border: 1px solid #c9bca9;
+            width: 340px; height: 440px; background: #dccfb8;
+            border-radius: 3px; position: relative; cursor: pointer;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.7);
+            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            border: 1px solid #c5b59e;
         }
-        .parcel:hover { transform: rotate(-2deg) scale(1.02); }
-        .twine-v { position: absolute; left: 50%; width: 15px; height: 100%; background: #8b5a2b; transform: translateX(-50%); }
-        .twine-h { position: absolute; top: 50%; width: 100%; height: 15px; background: #8b5a2b; transform: translateY(-50%); }
-        .parcel-tag {
-            position: absolute; top: 40%; left: 45%; background: #fdf5e6;
-            padding: 10px 20px; border: 1px solid #8b5a2b; font-family: 'Caveat', cursive;
-            font-size: 2rem; transform: rotate(10deg); box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        .parcel:hover { transform: rotate(-3deg) translateY(-10px); }
+        .string-v { position: absolute; left: 50%; width: 12px; height: 100%; background: #5d4037; transform: translateX(-50%); box-shadow: inset 2px 0 5px rgba(0,0,0,0.3); }
+        .string-h { position: absolute; top: 50%; width: 100%; height: 12px; background: #5d4037; transform: translateY(-50%); box-shadow: inset 0 2px 5px rgba(0,0,0,0.3); }
+        .parcel-seal {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 80px; height: 80px; background: #8e2121; border-radius: 50%;
+            border: 3px double #701a1a; display: flex; align-items: center; justify-content: center;
+            font-family: 'Caveat', cursive; color: #eec170; font-size: 1.8rem; box-shadow: 0 5px 15px rgba(0,0,0,0.4);
         }
 
-        /* Letter Modal */
+        /* ANNIVERSARY LETTER MODAL */
         .letter-modal {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
-            width: 90%; max-width: 600px; background: var(--paper-aged);
-            padding: 50px; border-radius: 5px; z-index: 11000;
-            transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-            max-height: 80vh; overflow-y: auto; box-shadow: 0 0 100px rgba(0,0,0,0.8);
-            border: 20px solid transparent;
-            border-image: url('https://www.transparenttextures.com/patterns/old-map.png') 30 stretch;
+            width: 90%; max-width: 650px; background: var(--paper);
+            padding: 60px; border-radius: 2px; z-index: 11000;
+            transition: 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+            max-height: 85vh; overflow-y: auto; box-shadow: 0 0 150px rgba(0,0,0,0.9);
+            border: 1px solid #d4c4a8;
+            background-image: url('https://www.transparenttextures.com/patterns/old-map.png');
         }
         .letter-modal.open { transform: translate(-50%, -50%) scale(1); }
-        .letter-modal h2 { font-family: 'Caveat', cursive; font-size: 3.5rem; color: var(--ink); text-align: center; }
-        .letter-modal p { text-align: justify; line-height: 1.8; color: var(--ink); font-size: 1.1rem; }
-
-        .btn-open {
-            display: block; margin: 30px auto 0; padding: 12px 35px;
-            background: #8b5a2b; color: white; border: none; font-family: 'Caveat', cursive;
-            font-size: 1.8rem; cursor: pointer; border-radius: 5px; transition: 0.3s;
+        .letter-modal h2 { 
+            font-family: 'Caveat', cursive; font-size: 3.8rem; color: #5d4037; 
+            text-align: center; margin: 0 0 30px 0; width: 100%;
         }
+        .letter-modal p { text-align: justify; line-height: 1.9; color: var(--ink); font-size: 1.15rem; margin-bottom: 20px; }
 
-        /* 4. THE VINTAGE JOURNAL */
-        #main-journal { display: none; width: 100%; animation: fadeIn 1s forwards; flex-direction: column; align-items: center; z-index: 5; }
-        .main-header { font-family: 'Caveat', cursive; font-size: 4rem; color: #fdf5e6; margin-bottom: 20px; filter: drop-shadow(2px 2px 4px black); }
+        .btn-start {
+            display: block; margin: 40px auto 0; padding: 15px 45px;
+            background: #5d4037; color: #f4ecd8; border: none; font-family: 'Caveat', cursive;
+            font-size: 2rem; cursor: pointer; transition: 0.3s;
+        }
+        .btn-start:hover { background: #3e2b25; letter-spacing: 2px; }
+
+        /* 3. MAIN JOURNAL */
+        #main-journal { display: none; width: 100%; animation: journalFade 1.2s forwards; flex-direction: column; align-items: center; z-index: 5; }
+        @keyframes journalFade { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        
+        .main-header { font-family: 'Caveat', cursive; font-size: 4.5rem; color: var(--paper); margin-bottom: 20px; text-shadow: 3px 3px 10px rgba(0,0,0,0.5); }
 
         .journal {
-            width: 95%; max-width: 900px; height: 650px;
-            background: var(--paper-aged); display: flex; position: relative;
-            box-shadow: 30px 30px 60px rgba(0,0,0,0.5);
-            border-radius: 5px 20px 20px 5px;
-            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            width: 95%; max-width: 950px; height: 700px;
+            background: var(--paper); display: flex; position: relative;
+            box-shadow: 40px 40px 100px rgba(0,0,0,0.8);
+            background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+            border: 1px solid rgba(0,0,0,0.1);
         }
 
-        /* Leather Binding */
-        .leather-spine {
-            width: 60px; height: 100%; background: #4a332d;
-            border-radius: 5px 0 0 5px; border-right: 3px solid #3d2b1f;
+        .spine {
+            width: 70px; height: 100%; background: var(--leather);
+            border-right: 4px solid #2d1f1a;
             display: flex; flex-direction: column; justify-content: space-around; align-items: center;
+            box-shadow: inset -10px 0 20px rgba(0,0,0,0.5);
         }
-        .stitch { width: 4px; height: 20px; background: rgba(255,255,255,0.1); border-radius: 2px; }
+        .spine-detail { width: 30px; height: 2px; background: rgba(255,255,255,0.05); }
 
-        .content-area { flex: 1; padding: 50px 80px; overflow-y: auto; color: var(--ink); position: relative; }
+        .content-area { flex: 1; padding: 60px 90px; overflow-y: auto; color: var(--ink); position: relative; }
 
-        /* Entries */
         .page { display: none; }
-        .page.active { display: block; animation: pageIn 0.5s ease forwards; }
-        @keyframes pageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .page.active { display: block; animation: pageReveal 0.8s ease; }
+        @keyframes pageReveal { from { opacity: 0; transform: rotateX(-5deg); } to { opacity: 1; transform: rotateX(0); } }
 
-        .page h2 { font-family: 'Caveat', cursive; font-size: 3.5rem; text-align: center; margin-bottom: 30px; }
+        .page h2 { font-family: 'Caveat', cursive; font-size: 4rem; text-align: center; margin-bottom: 40px; color: #4a332d; }
         .page p { text-align: justify; line-height: 2.2rem; font-size: 1.15rem; margin-bottom: 25px; white-space: pre-line; }
 
-        /* Polaroid Frame */
-        .polaroid {
-            background: white; padding: 15px 15px 45px 15px; width: 100%; max-width: 400px;
-            margin: 0 auto 30px; transform: rotate(-2deg); box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        .polaroid-inner { width: 100%; height: 280px; background: #eee; background-size: cover; background-position: center; }
+        /* COVER PAGE */
+        .welcome-msg { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; }
+        .welcome-msg h2 { font-size: 6rem; color: #4a332d; margin: 0; font-family: 'Caveat', cursive; }
 
-        .poem-box {
-            font-family: 'Caveat', cursive; font-size: 2rem; text-align: center; line-height: 2.8rem;
-            padding: 30px; border-top: 1px solid rgba(0,0,0,0.1); border-bottom: 1px solid rgba(0,0,0,0.1);
-            margin: 40px 0;
-        }
-
-        /* 5. TABS (OUTWARD & PASTEL) */
-        .tabs { position: absolute; left: 100%; top: 60px; display: flex; flex-direction: column; gap: 15px; }
+        /* 4. TABS (VINTAGE PASTEL) */
+        .tabs { position: absolute; left: 100%; top: 80px; display: flex; flex-direction: column; gap: 15px; }
         .tab-btn {
-            width: 60px; height: 60px; border: none; border-radius: 0 10px 10px 0;
+            width: 65px; height: 60px; border: none; border-radius: 0 5px 5px 0;
             cursor: pointer; display: flex; align-items: center; padding: 0 20px;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 10px 5px 20px rgba(0,0,0,0.4);
         }
-        .tab-btn:hover { width: 180px; }
-        .tab-btn i { font-size: 1.4rem; color: var(--ink); min-width: 25px; }
+        .tab-btn:hover { width: 200px; }
+        .tab-btn i { font-size: 1.5rem; color: var(--ink); min-width: 30px; }
         .tab-label { 
-            margin-left: 15px; opacity: 0; transition: 0.3s; 
+            margin-left: 20px; opacity: 0; transition: 0.3s; 
             font-family: 'Caveat', cursive; font-size: 1.8rem; font-weight: bold; color: var(--ink);
         }
         .tab-btn:hover .tab-label { opacity: 1; }
-        .tab-btn.active { transform: translateX(10px); width: 80px; }
+        .tab-btn.active { transform: translateX(15px); width: 85px; z-index: 10; }
 
-        .btn-1 { background: var(--tab-1); }
-        .btn-2 { background: var(--tab-2); }
-        .btn-3 { background: var(--tab-3); }
-        .btn-4 { background: var(--tab-4); }
-        .btn-5 { background: var(--tab-5); }
+        .btn-1 { background: var(--v-pink); }
+        .btn-2 { background: var(--v-orange); }
+        .btn-3 { background: var(--v-green); }
+        .btn-4 { background: var(--v-mint); }
+        .btn-5 { background: var(--v-blue); }
 
-        .video-container { margin-top: 30px; border: 10px solid white; box-shadow: 0 10px 20px rgba(0,0,0,0.2); transform: rotate(1deg); }
+        /* ELEMENTS */
+        .polaroid {
+            background: #fff; padding: 15px 15px 50px 15px; width: 100%; max-width: 450px;
+            margin: 0 auto 40px; transform: rotate(-2deg); box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border: 1px solid #ddd;
+        }
+        .polaroid-img { width: 100%; height: 300px; background: #e0e0e0; background-size: cover; background-position: center; }
 
-        /* Hello! :333 Cover */
-        .welcome-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; }
-        .welcome-screen h2 { font-size: 6rem; color: var(--ink); margin: 0; }
+        .poem-section {
+            font-family: 'Caveat', cursive; font-size: 2.2rem; text-align: center; line-height: 3rem;
+            padding: 40px; border-top: 1px solid rgba(0,0,0,0.1); border-bottom: 1px solid rgba(0,0,0,0.1);
+            margin: 50px 0; color: #5d4037;
+        }
+        .video-box { margin-top: 40px; border: 12px solid #fff; box-shadow: 0 20px 40px rgba(0,0,0,0.3); transform: rotate(1deg); }
 
     </style>
 </head>
 <body>
 
-    <!-- Desk Elements -->
-    <i class="fa-solid fa-mug-hot decoration coffee"></i>
-    <i class="fa-solid fa-leaf decoration lavender"></i>
+    <!-- Dust Motes -->
+    <div id="dust-container"></div>
 
-    <!-- Happy 10th Greeting -->
+    <!-- Starting Greeting -->
     <div class="greeting-overlay">
         <h1>Happy 10th!</h1>
     </div>
@@ -187,49 +197,46 @@
     <!-- STAGE 1: PARCEL -->
     <div id="anniversary-screen">
         <div class="parcel" onclick="openLetter()">
-            <div class="twine-v"></div>
-            <div class="twine-h"></div>
-            <div class="parcel-tag">10th Month</div>
+            <div class="string-v"></div>
+            <div class="string-h"></div>
+            <div class="parcel-seal">10th</div>
         </div>
 
         <div class="letter-modal" id="letter">
-            <h2>Happy 10 months to us!</h2>
-            <p>Happy 10 months to us! I can hardly believe how fast these months have gone by. Looking back, I feel so happy and grateful for every little moment we’ve shared. The laughter, the quiet talks, the times we’ve been a little unsure but held on anyway. Even in the moments when I felt fragile or nervous, your understanding and patience have always been my anchor. You’ve made it so easy for me to feel safe, to trust, and to love without holding back, and I can’t thank you enough for that.
-
-            Some people say the number 10 represents balance, a kind of completion, and a step toward something bigger. To me, it feels like that in the sweetest way. These ten months aren’t just numbers, they’re a little celebration of everything we’ve built together, of all the love, care, and patience we’ve shared, and of the ways we’ve grown side by side. Even when life has felt uncertain or my heart has been cautious, you’ve helped me breathe, trust, and feel at home in your love.
-
-            My heart keeps seeking you more with each passing day. I find myself smiling at thoughts of you, missing you when we’re apart, and holding onto the joy of being with you when we’re together. I’ve felt so lucky, not just for the fun moments or the memories, but for the way you understand me in ways no one else does. How you listen, how you meet me in my fears, and how your love feels steady and comforting even when I feel unsure.
-
-            I feel grateful for you in ways I can’t fully express. You’ve helped me open my heart in ways I didn’t think were possible, and every day I’m reminded how patient, kind, and amazing you are. Ten months may seem like just a number, but to me, it’s a milestone that marks so much more than that.
-
-            I can’t wait for everything still ahead, the mornings, the nights, the little memories and surprises good or bad yet to come. Thank you for being mine, for understanding me, and for loving me through it all. Here’s to us, to our ten months, and to every moment we’ll share after this. I love you so much, more than words can say, and I always will.</p>
-            <button class="btn-open" onclick="startJournal()">Open Journal →</button>
+            <h2>Happy 10 Months to Us</h2>
+            <p>Happy 10 months to us! I can hardly believe how fast these months have gone by. Looking back, I feel so happy and grateful for every little moment we’ve shared. The laughter, the quiet talks, the times we’ve been a little unsure but held on anyway. Even in the moments when I felt fragile or nervous, your understanding and patience have always been my anchor. You’ve made it so easy for me to feel safe, to trust, and to love without holding back, and I can’t thank you enough for that.</p>
+            <p>Some people say the number 10 represents balance, a kind of completion, and a step toward something bigger. To me, it feels like that in the sweetest way. These ten months aren’t just numbers, they’re a little celebration of everything we’ve built together, of all the love, care, and patience we’ve shared, and of the ways we’ve grown side by side. Even when life has felt uncertain or my heart has been cautious, you’ve helped me breathe, trust, and feel at home in your love.</p>
+            <p>My heart keeps seeking you more with each passing day. I find myself smiling at thoughts of you, missing you when we’re apart, and holding onto the joy of being with you when we’re together. I’ve felt so lucky, not just for the fun moments or the memories, but for the way you understand me in ways no one else does. How you listen, how you meet me in my fears, and how your love feels steady and comforting even when I feel unsure.</p>
+            <p>I feel grateful for you in ways I can’t fully express. You’ve helped me open my heart in ways I didn’t think were possible, and every day I’m reminded how patient, kind, and amazing you are. Ten months may seem like just a number, but to me, it’s a milestone that marks so much more than that.</p>
+            <p>I can’t wait for everything still ahead, the mornings, the nights, the little memories and surprises good or bad yet to come. Thank you for being mine, for understanding me, and for loving me through it all. Here’s to us, to our ten months, and to every moment we’ll share after this. I love you so much, more than words can say, and I always will.</p>
+            <button class="btn-start" onclick="startJournal()">Open Journal →</button>
         </div>
     </div>
 
-    <!-- STAGE 2: JOURNAL -->
+    <!-- STAGE 2: THE JOURNAL -->
     <div id="main-journal">
         <h1 class="main-header" id="header-text">What will you read first?</h1>
         
         <div class="journal">
-            <div class="leather-spine">
-                <div class="stitch"></div><div class="stitch"></div><div class="stitch"></div><div class="stitch"></div><div class="stitch"></div>
+            <div class="spine">
+                <div class="spine-detail"></div><div class="spine-detail"></div><div class="spine-detail"></div>
+                <div class="spine-detail"></div><div class="spine-detail"></div><div class="spine-detail"></div>
             </div>
 
             <div class="content-area">
                 
-                <!-- COVER PAGE -->
+                <!-- COVER -->
                 <div class="page active" id="welcome-page">
-                    <div class="welcome-screen">
-                        <h2>Hello! :333</h2>
-                        <p style="font-family: 'Caveat', cursive; font-size: 2rem;">Turn the tabs on the right to start...</p>
+                    <div class="welcome-msg">
+                        <h2>Hello darling ! :333</h2>
+                        <p style="font-family: 'Caveat', cursive; font-size: 2.2rem; color: #5d4037;">Open a tab on the right to begin...</p>
                     </div>
                 </div>
 
                 <!-- 1. HOLIDAYS -->
                 <div class="page" id="page-1">
                     <div class="polaroid">
-                        <div class="polaroid-inner" style="background-image: url('YOUR_IMAGE_LINK');"></div>
+                        <div class="polaroid-img" style="background-image: url('YOUR_IMAGE_LINK');"></div>
                     </div>
                     <h2>Holidays</h2>
                     <p>Our first Christmas together is something I find myself thinking about over and over again, and every time I do, my heart feels full. I never really realized how special Christmas could be until I got to experience it with you. Spending that day together felt new, exciting, and a little scary in the best way.
@@ -263,8 +270,8 @@
 
                 <!-- 3. UNDERSTAND -->
                 <div class="page" id="page-3">
-                    <div class="polaroid" style="transform: rotate(2deg);">
-                        <div class="polaroid-inner" style="background-image: url('YOUR_IMAGE_LINK');"></div>
+                    <div class="polaroid" style="transform: rotate(3deg);">
+                        <div class="polaroid-img" style="background-image: url('YOUR_IMAGE_LINK');"></div>
                     </div>
                     <h2>Understand</h2>
                     <p>I want you to know how truly grateful I am for your patience with me, especially considering how sensitive this year has been for us. Ending one year and starting another in such a fragile place was not easy, and yet you stayed gentle with me through it all. Your care and understanding reminded me that love is not just about perfect moments, but about staying even when things feel uncertain.
@@ -287,7 +294,7 @@
                 <!-- 4. ALWAYS -->
                 <div class="page" id="page-4">
                     <h2>With You, Always</h2>
-                    <div class="poem-box">
+                    <div class="poem-section">
                         Even in the quiet, I feel you near,<br>
                         A gentle heartbeat I hold dear.<br>
                         Through every worry, every little fear,<br>
@@ -323,7 +330,7 @@
                 <!-- 5. MELODY -->
                 <div class="page" id="page-5">
                     <h2>Can't Smile Without You</h2>
-                    <div class="poem-box" style="background:none; border-left: 10px solid var(--tab-5);">
+                    <div class="poem-section" style="border-left: 10px solid var(--v-blue); background: rgba(0,0,0,0.02);">
                         Some days feel quieter than they should,<br>
                         like laughter forgot the way back home.<br>
                         The world still moves, but something’s missing<br>
@@ -334,7 +341,7 @@
                         I try to pretend I’m doing just fine,<br>
                         but honestly, I cant smile without you.
                     </div>
-                    <div class="video-container">
+                    <div class="video-box">
                         <iframe width="100%" height="350" src="https://www.youtube.com/embed/S_8S_f7f9-8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
@@ -347,13 +354,13 @@
                     <i class="fa-solid fa-holly-berry"></i><span class="tab-label">Holidays</span>
                 </button>
                 <button class="tab-btn btn-2" onclick="openPage(event, 'page-2')" onmouseenter="peek('Missing You')" onmouseleave="revert()">
-                    <i class="fa-solid fa-heart-crack"></i><span class="tab-label">Missing</span>
+                    <i class="fa-solid fa-heart-circle-exclamation"></i><span class="tab-label">Missing</span>
                 </button>
                 <button class="tab-btn btn-3" onclick="openPage(event, 'page-3')" onmouseenter="peek('Understand')" onmouseleave="revert()">
                     <i class="fa-solid fa-hand-holding-heart"></i><span class="tab-label">Understand</span>
                 </button>
                 <button class="tab-btn btn-4" onclick="openPage(event, 'page-4')" onmouseenter="peek('Always')" onmouseleave="revert()">
-                    <i class="fa-solid fa-feather"></i><span class="tab-label">Always</span>
+                    <i class="fa-solid fa-feather-pointed"></i><span class="tab-label">Always</span>
                 </button>
                 <button class="tab-btn btn-5" onclick="openPage(event, 'page-5')" onmouseenter="peek('Melody')" onmouseleave="revert()">
                     <i class="fa-solid fa-music"></i><span class="tab-label">Melody</span>
@@ -363,6 +370,18 @@
     </div>
 
     <script>
+        // Create dust motes
+        const dustContainer = document.getElementById('dust-container');
+        for (let i = 0; i < 40; i++) {
+            const dust = document.createElement('div');
+            dust.className = 'dust';
+            dust.style.left = Math.random() * 100 + 'vw';
+            dust.style.width = dust.style.height = Math.random() * 5 + 2 + 'px';
+            dust.style.animationDuration = Math.random() * 10 + 15 + 's';
+            dust.style.animationDelay = Math.random() * 10 + 's';
+            dustContainer.appendChild(dust);
+        }
+
         let currentHeader = "What will you read first?";
         const header = document.getElementById('header-text');
 
@@ -374,11 +393,13 @@
 
         function peek(txt) {
             header.innerText = txt;
-            header.style.color = "var(--tab-1)";
+            header.style.color = "var(--v-pink)";
+            header.style.transform = "scale(1.1)";
         }
         function revert() {
             header.innerText = currentHeader;
-            header.style.color = "#fdf5e6";
+            header.style.color = "var(--paper)";
+            header.style.transform = "scale(1)";
         }
 
         function openPage(evt, id) {
