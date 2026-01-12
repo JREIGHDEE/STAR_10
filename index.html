@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our 10 Months | Aesthetic Journal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Quicksand:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --bg-color: #fcf8f5;
             --paper-color: #fffdfa;
-            --tab-1: #ffadad; /* Holidays - Pink */
-            --tab-2: #ffd6a5; /* Missing - Orange */
-            --tab-3: #fdffb6; /* Understand - Yellow */
-            --tab-4: #caffbf; /* Always - Green */
-            --tab-5: #a0c4ff; /* Melody - Blue */
+            --tab-1: #ffadad; 
+            --tab-2: #ffd6a5; 
+            --tab-3: #fdffb6; 
+            --tab-4: #caffbf; 
+            --tab-5: #a0c4ff; 
             --text-dark: #5d576b;
         }
 
@@ -46,8 +46,8 @@
             pointer-events: none;
         }
         .greeting-overlay h1 {
-            font-family: 'Caveat', cursive;
-            font-size: 6rem;
+            font-family: 'Pacifico', cursive;
+            font-size: 5rem;
             color: var(--tab-1);
             animation: popIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -115,7 +115,7 @@
         }
         .proceed-btn:hover { background: #ff8b8b; transform: translateY(-3px); }
 
-        /* 4. MAIN JOURNAL LAYOUT (Bigger Size) */
+        /* 4. MAIN JOURNAL LAYOUT */
         #main-journal {
             display: none;
             flex-direction: column;
@@ -126,10 +126,10 @@
         }
 
         .main-header {
-            font-family: 'Caveat', cursive;
-            font-size: 3.8rem;
+            font-family: 'Pacifico', cursive;
+            font-size: 3rem;
             margin-bottom: 20px;
-            height: 70px;
+            height: 80px;
             transition: 0.3s;
         }
 
@@ -156,16 +156,23 @@
         .page { display: none; }
         .page.active { display: block; animation: slideIn 0.5s ease forwards; }
 
-        .page h2 { font-family: 'Caveat', cursive; font-size: 2.8rem; margin-bottom: 20px; color: var(--text-dark); }
+        /* CENTER TITLES */
+        .page h2 { 
+            font-family: 'Pacifico', cursive; 
+            font-size: 2.2rem; 
+            margin-bottom: 30px; 
+            color: var(--text-dark); 
+            text-align: center; 
+        }
         .page p { text-align: justify; line-height: 2rem; margin-bottom: 20px; white-space: pre-line; }
 
-        /* Cover/Welcome Page Styling */
+        /* Welcome Page Styling */
         .welcome-page-content {
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             height: 100%; text-align: center;
         }
-        .welcome-page-content h2 { font-size: 5rem; color: var(--tab-1); font-family: 'Caveat', cursive; }
+        .welcome-page-content h2 { font-size: 5rem; color: var(--tab-1); font-family: 'Pacifico', cursive; }
 
         /* 6. TABS (OUTWARD) */
         .tabs-container {
@@ -185,7 +192,16 @@
             box-shadow: 6px 3px 15px rgba(0,0,0,0.05);
         }
         .tab-btn:hover { width: 175px; }
-        .tab-label { margin-left: 15px; opacity: 0; transition: 0.3s; font-weight: 600; font-size: 1rem; }
+        
+        /* CUTER TAB FONT */
+        .tab-label { 
+            margin-left: 15px; 
+            opacity: 0; 
+            transition: 0.3s; 
+            font-weight: 700; 
+            font-size: 1.4rem; 
+            font-family: 'Caveat', cursive;
+        }
         .tab-btn:hover .tab-label { opacity: 1; }
         .tab-btn.active { transform: translateX(10px); border: 2px solid white; border-left: none; }
 
@@ -210,9 +226,10 @@
         }
         .poem-box {
             font-family: 'Caveat', cursive;
-            font-size: 1.8rem; line-height: 2.4rem;
+            font-size: 1.9rem; line-height: 2.6rem;
             padding: 30px; background: rgba(255, 173, 173, 0.05);
             border-radius: 15px; margin-bottom: 30px;
+            text-align: center; /* CENTER POEMS */
         }
 
         /* Animations */
@@ -225,7 +242,7 @@
 </head>
 <body>
 
-    <!-- Happy 10th Greeting -->
+    <!-- Greeting Overlay -->
     <div class="greeting-overlay">
         <h1>Happy 10th!</h1>
     </div>
@@ -233,11 +250,11 @@
     <!-- STAGE 1: WRAPPED GIFT -->
     <div id="anniversary-screen">
         <div class="wrapped-book" onclick="openLetter()">
-            <div class="anniversary-tag">10th Month ✨</div>
+            <div class="anniversary-tag">10th Month</div>
         </div>
         
         <div class="letter-modal" id="letter">
-            <h2 style="font-family: 'Caveat', cursive; font-size: 3rem; margin-top:0; color: var(--tab-1); text-align: center;">Happy 10 months to us!</h2>
+            <h2 style="font-family: 'Pacifico', cursive; font-size: 2.2rem; margin-top:0; color: var(--tab-1); text-align: center;">Happy 10 months to us!</h2>
             <p>Happy 10 months to us! I can hardly believe how fast these months have gone by. Looking back, I feel so happy and grateful for every little moment we’ve shared. The laughter, the quiet talks, the times we’ve been a little unsure but held on anyway. Even in the moments when I felt fragile or nervous, your understanding and patience have always been my anchor. You’ve made it so easy for me to feel safe, to trust, and to love without holding back, and I can’t thank you enough for that.</p>
             <p>Some people say the number 10 represents balance, a kind of completion, and a step toward something bigger. To me, it feels like that in the sweetest way. These ten months aren’t just numbers, they’re a little celebration of everything we’ve built together, of all the love, care, and patience we’ve shared, and of the ways we’ve grown side by side. Even when life has felt uncertain or my heart has been cautious, you’ve helped me breathe, trust, and feel at home in your love.</p>
             <p>My heart keeps seeking you more with each passing day. I find myself smiling at thoughts of you, missing you when we’re apart, and holding onto the joy of being with you when we’re together. I’ve felt so lucky, not just for the fun moments or the memories, but for the way you understand me in ways no one else does. How you listen, how you meet me in my fears, and how your love feels steady and comforting even when I feel unsure.</p>
@@ -254,7 +271,7 @@
         <div class="book">
             <div class="content-area">
                 
-                <!-- COVER PAGE (Goes away when any tab is clicked) -->
+                <!-- COVER PAGE -->
                 <div class="page active" id="welcome-page">
                     <div class="welcome-page-content">
                         <h2>Hello! :333</h2>
@@ -264,7 +281,7 @@
 
                 <!-- 1. HOLIDAYS -->
                 <div class="page" id="page-1">
-                    <div class="entry-image" style="background-image: url('ADD_YOUR_IMAGE_LINK_HERE');">
+                    <div class="entry-image">
                         <span style="color:#aaa; font-style:italic;">[Add Holiday Photo Here]</span>
                     </div>
                     <h2>Holidays</h2>
@@ -299,7 +316,7 @@
 
                 <!-- 3. UNDERSTAND -->
                 <div class="page" id="page-3">
-                    <div class="entry-image" style="background-image: url('ADD_YOUR_IMAGE_LINK_HERE');">
+                    <div class="entry-image">
                         <span style="color:#aaa; font-style:italic;">[Add Understand Photo Here]</span>
                     </div>
                     <h2>Understand</h2>
@@ -320,10 +337,10 @@
                     I love you more than I could ever express in words, and every day I am thankful that you are by my side. You are my safe place, my home in a world that often feels uncertain, and my light when my mind clouds with fear. I am grateful for you, for us, and for the chance to walk together, even on the thin ice, because I know that as long as I have you, I will always find my footing.</p>
                 </div>
 
-                <!-- 4. WITH YOU, ALWAYS -->
+                <!-- 4. POEM ONE -->
                 <div class="page" id="page-4">
                     <h2>With You, Always</h2>
-                    <div class="poem-box" style="text-align: center;">
+                    <div class="poem-box">
                         Even in the quiet, I feel you near,<br>
                         A gentle heartbeat I hold dear.<br>
                         Through every worry, every little fear,<br>
@@ -359,7 +376,7 @@
                 <!-- 5. MELODY -->
                 <div class="page" id="page-5">
                     <h2>Can't Smile Without You</h2>
-                    <div class="poem-box" style="background:none; border-left: 5px solid var(--tab-5); text-align: left;">
+                    <div class="poem-box" style="background:none; border-left: 5px solid var(--tab-5); text-align: center;">
                         Some days feel quieter than they should,<br>
                         like laughter forgot the way back home.<br>
                         The world still moves, but something’s missing<br>
@@ -377,12 +394,12 @@
 
             </div>
 
-            <!-- TABS (OUTWARD) -->
+            <!-- TABS -->
             <div class="tabs-container">
                 <button class="tab-btn btn-1" onclick="openPage(event, 'page-1', 'Holidays')" onmouseenter="peekTitle('Holidays')" onmouseleave="revertTitle()">
                     <i class="fa-solid fa-holly-berry"></i><span class="tab-label">Holidays</span>
                 </button>
-                <button class="tab-btn btn-2" onclick="openPage(event, 'page-2', 'Missing You Part 3')" onmouseenter="peekTitle('Missing You Part 3')" onmouseleave="revertTitle()">
+                <button class="tab-btn btn-2" onclick="openPage(event, 'page-2', 'Missing You')" onmouseenter="peekTitle('Missing You')" onmouseleave="revertTitle()">
                     <i class="fa-solid fa-heart-crack"></i><span class="tab-label">Missing</span>
                 </button>
                 <button class="tab-btn btn-3" onclick="openPage(event, 'page-3', 'Understand')" onmouseenter="peekTitle('Understand')" onmouseleave="revertTitle()">
@@ -425,15 +442,12 @@
             currentPrompt = "What will you read next?";
             header.innerText = currentPrompt;
             
-            // This selects all elements with class "page" and removes "active"
-            // This includes the #welcome-page (Hello! :333)
             const pages = document.querySelectorAll('.page');
             pages.forEach(p => p.classList.remove('active'));
 
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(b => b.classList.remove('active'));
 
-            // Show the clicked entry
             document.getElementById(pageId).classList.add('active');
             evt.currentTarget.classList.add('active');
         }
