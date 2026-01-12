@@ -11,12 +11,11 @@
         :root {
             --bg-color: #fcf8f5;
             --paper-color: #fffdfa;
-            /* Bringing back the aesthetic colors */
-            --tab-1: #ffadad; /* Holidays - Pink */
-            --tab-2: #ffd6a5; /* Missing - Orange */
-            --tab-3: #fdffb6; /* Understand - Yellow */
-            --tab-4: #caffbf; /* Always - Green */
-            --tab-5: #a0c4ff; /* Melody - Blue */
+            --tab-1: #ffadad; /* Pink */
+            --tab-2: #ffd6a5; /* Orange */
+            --tab-3: #fdffb6; /* Yellow */
+            --tab-4: #caffbf; /* Green */
+            --tab-5: #a0c4ff; /* Blue */
             --text-dark: #5d576b;
         }
 
@@ -30,8 +29,8 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
             color: var(--text-dark);
+            overflow-x: hidden;
         }
 
         /* 1. GREETING ANIMATION */
@@ -43,146 +42,152 @@
             justify-content: center;
             align-items: center;
             z-index: 10000;
-            animation: fadeOut 0.8s ease forwards 1.8s;
+            animation: fadeOut 0.8s ease forwards 2s;
             pointer-events: none;
         }
         .greeting-overlay h1 {
             font-family: 'Caveat', cursive;
-            font-size: 5.5rem;
+            font-size: 6rem;
             color: var(--tab-1);
-            animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: popIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* 2. ANNIVERSARY LETTER SCREEN */
+        /* 2. INITIAL ANNIVERSARY WRAPPER */
         #anniversary-screen {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: 1s ease;
+            z-index: 10;
         }
 
         .wrapped-book {
-            width: 300px;
-            height: 400px;
+            width: 320px;
+            height: 420px;
             background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
             position: relative;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: 0.5s;
-            border: 8px solid var(--tab-1);
+            border: 10px solid var(--tab-1);
         }
-
-        .wrapped-book:hover { transform: scale(1.05) rotate(-2deg); }
-
+        .wrapped-book:hover { transform: scale(1.05) rotate(-3deg); }
         .wrapped-book::before {
-            content: ''; position: absolute; width: 45px; height: 100%;
+            content: ''; position: absolute; width: 50px; height: 100%;
             background: var(--tab-1); left: 50%; transform: translateX(-50%);
         }
         .wrapped-book::after {
-            content: ''; position: absolute; height: 45px; width: 100%;
+            content: ''; position: absolute; height: 50px; width: 100%;
             background: var(--tab-1); top: 50%; transform: translateY(-50%);
         }
-
         .anniversary-tag {
             background: white;
-            padding: 12px 24px;
+            padding: 15px 30px;
             border: 2px dashed var(--tab-1);
             z-index: 2;
             font-family: 'Caveat', cursive;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             transform: rotate(-5deg);
         }
 
+        /* 3. THE FIRST MESSAGE MODAL */
         .letter-modal {
             position: fixed;
             top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
-            width: 90%; max-width: 550px;
-            background: var(--paper-color); padding: 45px;
-            border-radius: 10px; box-shadow: 0 30px 60px rgba(0,0,0,0.2);
-            z-index: 500; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 90%; max-width: 600px;
+            background: var(--paper-color); padding: 50px;
+            border-radius: 15px; box-shadow: 0 40px 80px rgba(0,0,0,0.2);
+            z-index: 500; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             max-height: 85vh; overflow-y: auto;
         }
         .letter-modal.open { transform: translate(-50%, -50%) scale(1); }
-        .letter-modal p { text-align: justify; line-height: 1.6; }
+        .letter-modal p { text-align: justify; line-height: 1.8; margin-bottom: 20px; }
 
         .proceed-btn {
-            margin-top: 25px; padding: 12px 30px;
-            background: var(--tab-1); border: none;
-            border-radius: 25px; font-family: 'Quicksand', sans-serif;
-            font-weight: bold; cursor: pointer; transition: 0.3s;
+            display: block; width: fit-content; margin: 30px auto 0;
+            padding: 15px 40px; background: var(--tab-1); border: none;
+            border-radius: 30px; font-family: 'Quicksand', sans-serif;
+            font-weight: bold; cursor: pointer; transition: 0.3s; color: white;
         }
-        .proceed-btn:hover { background: #ff8b8b; transform: scale(1.1); }
+        .proceed-btn:hover { background: #ff8b8b; transform: translateY(-3px); }
 
-        /* 3. MAIN JOURNAL (Bigger Size) */
+        /* 4. MAIN JOURNAL LAYOUT (Bigger Size) */
         #main-journal {
             display: none;
             flex-direction: column;
             align-items: center;
             width: 100%;
             animation: fadeIn 1s forwards;
+            padding: 20px;
         }
 
         .main-header {
             font-family: 'Caveat', cursive;
-            font-size: 3.5rem;
-            margin-bottom: 25px;
-            height: 60px;
+            font-size: 3.8rem;
+            margin-bottom: 20px;
+            height: 70px;
+            transition: 0.3s;
         }
 
         .book {
-            width: 90%;
-            max-width: 800px; /* Made Bigger */
-            height: 600px;    /* Made Bigger */
+            width: 100%;
+            max-width: 850px; /* Bigger */
+            height: 650px;    /* Bigger */
             background: var(--paper-color);
-            border-radius: 15px 45px 45px 15px;
+            border-radius: 15px 50px 50px 15px;
             display: flex;
             position: relative;
-            box-shadow: 25px 25px 60px rgba(0,0,0,0.06);
+            box-shadow: 30px 30px 70px rgba(0,0,0,0.07);
             border: 1px solid rgba(0,0,0,0.05);
         }
 
         .content-area {
             flex: 1;
-            padding: 50px 70px;
+            padding: 60px 80px;
             overflow-y: auto;
             position: relative;
         }
 
+        /* 5. PAGE STYLING */
         .page { display: none; }
-        .page.active { display: block; animation: slideIn 0.5s ease; }
-        
-        /* Justified Text for Journal Entries */
-        .page p {
-            text-align: justify;
-            line-height: 2rem;
-            margin-bottom: 20px;
-        }
+        .page.active { display: block; animation: slideIn 0.5s ease forwards; }
 
-        /* 4. TABS OUTWARD */
+        .page h2 { font-family: 'Caveat', cursive; font-size: 2.8rem; margin-bottom: 20px; color: var(--text-dark); }
+        .page p { text-align: justify; line-height: 2rem; margin-bottom: 20px; white-space: pre-line; }
+
+        /* Cover/Welcome Page */
+        .welcome-page {
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            height: 100%; text-align: center;
+        }
+        .welcome-page h2 { font-size: 5rem; color: var(--tab-1); }
+
+        /* 6. TABS (OUTWARD) */
         .tabs-container {
             position: absolute;
             left: calc(100% - 10px);
-            top: 50px;
+            top: 60px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
         }
         .tab-btn {
-            width: 55px; height: 55px;
-            border: none; border-radius: 0 18px 18px 0;
+            width: 60px; height: 60px;
+            border: none; border-radius: 0 20px 20px 0;
             cursor: pointer; display: flex; align-items: center;
-            padding: 0 18px; transition: 0.4s; overflow: hidden;
-            white-space: nowrap; box-shadow: 5px 2px 10px rgba(0,0,0,0.05);
+            padding: 0 20px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden; white-space: nowrap;
+            box-shadow: 6px 3px 15px rgba(0,0,0,0.05);
         }
-        .tab-btn:hover { width: 155px; }
-        .tab-label { margin-left: 15px; opacity: 0; transition: 0.3s; font-weight: 600; }
+        .tab-btn:hover { width: 170px; }
+        .tab-label { margin-left: 15px; opacity: 0; transition: 0.3s; font-weight: 600; font-size: 1rem; }
         .tab-btn:hover .tab-label { opacity: 1; }
-        .tab-btn.active { transform: translateX(8px); border: 2px solid white; border-left: none; }
+        .tab-btn.active { transform: translateX(10px); border: 2px solid white; border-left: none; }
 
         .btn-1 { background: var(--tab-1); }
         .btn-2 { background: var(--tab-2); }
@@ -190,36 +195,25 @@
         .btn-4 { background: var(--tab-4); }
         .btn-5 { background: var(--tab-5); }
 
-        /* 5. ELEMENTS WITHIN PAGES */
+        /* 7. ASSETS */
         .entry-image {
-            width: 100%; height: 280px;
-            background: #eee; margin-bottom: 25px;
-            border-radius: 12px; border: 8px solid white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            width: 100%; height: 300px;
+            background: #f0f0f0; margin-bottom: 30px;
+            border-radius: 15px; border: 10px solid white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             display: flex; align-items: center; justify-content: center;
-            font-style: italic; color: #999;
             background-size: cover; background-position: center;
         }
-
         .video-container {
-            margin-top: 25px; border-radius: 12px;
-            overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            margin-top: 30px; border-radius: 15px;
+            overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-
         .poem-box {
             font-family: 'Caveat', cursive;
-            font-size: 1.7rem; line-height: 2.2rem;
+            font-size: 1.8rem; line-height: 2.4rem;
             padding: 30px; background: rgba(255, 173, 173, 0.05);
-            border-radius: 12px; margin-bottom: 25px;
+            border-radius: 15px; margin-bottom: 30px;
         }
-
-        /* Welcome Page Styling */
-        .welcome-msg {
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            height: 100%; text-align: center;
-        }
-        .welcome-msg h2 { font-family: 'Caveat', cursive; font-size: 4rem; color: var(--tab-1); }
 
         /* Animations */
         @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
@@ -231,95 +225,144 @@
 </head>
 <body>
 
+    <!-- Happy 10th Greeting -->
     <div class="greeting-overlay">
         <h1>Happy 10th!</h1>
     </div>
 
-    <!-- STAGE 1: ANNIVERSARY GIFT -->
+    <!-- STAGE 1: WRAPPED GIFT -->
     <div id="anniversary-screen">
         <div class="wrapped-book" onclick="openLetter()">
             <div class="anniversary-tag">10th Month ✨</div>
         </div>
         
         <div class="letter-modal" id="letter">
-            <h2 style="font-family: 'Caveat', cursive; font-size: 2.8rem; margin-top:0; color: var(--tab-1);">Happy 10 months to us!</h2>
-            <p>I can hardly believe how fast these months have gone by. Looking back, I feel so happy and grateful for every little moment we’ve shared. The laughter, the quiet talks, the times we’ve been a little unsure but held on anyway. Even in the moments when I felt fragile or nervous, your understanding and patience have always been my anchor. You’ve made it so easy for me to feel safe, to trust, and to love without holding back, and I can’t thank you enough for that.</p>
-            <p>Some people say the number 10 represents balance, a kind of completion, and a step toward something bigger. To me, it feels like that in the sweetest way. These ten months aren’t just numbers, they’re a little celebration of everything we’ve built together, of all the love, care, and patience we’ve shared, and of the ways we’ve grown side by side...</p>
-            <p>My heart keeps seeking you more with each passing day. I find myself smiling at thoughts of you, missing you when we’re apart, and holding onto the joy of being with you when we’re together. I’ve felt so lucky, not just for the fun moments or the memories, but for the way you understand me in ways no one else does.</p>
+            <h2 style="font-family: 'Caveat', cursive; font-size: 3rem; margin-top:0; color: var(--tab-1); text-align: center;">Happy 10 months to us!</h2>
+            <p>Happy 10 months to us! I can hardly believe how fast these months have gone by. Looking back, I feel so happy and grateful for every little moment we’ve shared. The laughter, the quiet talks, the times we’ve been a little unsure but held on anyway. Even in the moments when I felt fragile or nervous, your understanding and patience have always been my anchor. You’ve made it so easy for me to feel safe, to trust, and to love without holding back, and I can’t thank you enough for that.</p>
+            <p>Some people say the number 10 represents balance, a kind of completion, and a step toward something bigger. To me, it feels like that in the sweetest way. These ten months aren’t just numbers, they’re a little celebration of everything we’ve built together, of all the love, care, and patience we’ve shared, and of the ways we’ve grown side by side. Even when life has felt uncertain or my heart has been cautious, you’ve helped me breathe, trust, and feel at home in your love.</p>
+            <p>My heart keeps seeking you more with each passing day. I find myself smiling at thoughts of you, missing you when we’re apart, and holding onto the joy of being with you when we’re together. I’ve felt so lucky, not just for the fun moments or the memories, but for the way you understand me in ways no one else does. How you listen, how you meet me in my fears, and how your love feels steady and comforting even when I feel unsure.</p>
+            <p>I feel grateful for you in ways I can’t fully express. You’ve helped me open my heart in ways I didn’t think were possible, and every day I’m reminded how patient, kind, and amazing you are. Ten months may seem like just a number, but to me, it’s a milestone that marks so much more than that.</p>
             <p>I can’t wait for everything still ahead, the mornings, the nights, the little memories and surprises good or bad yet to come. Thank you for being mine, for understanding me, and for loving me through it all. Here’s to us, to our ten months, and to every moment we’ll share after this. I love you so much, more than words can say, and I always will.</p>
             <button class="proceed-btn" onclick="startJournal()">Open Journal →</button>
         </div>
     </div>
 
-    <!-- STAGE 2: MAIN JOURNAL -->
+    <!-- STAGE 2: THE JOURNAL -->
     <div id="main-journal">
         <h1 class="main-header" id="header-text">What will you read first?</h1>
         
         <div class="book">
             <div class="content-area">
                 
-                <!-- DEFAULT PAGE: Hello! :333 -->
-                <div class="page active" id="welcome-page">
-                    <div class="welcome-msg">
-                        <h2>Hello! :333</h2>
-                        <p style="text-align: center;">Pick a tab on the right to start reading my heart...</p>
-                    </div>
+                <!-- COVER PAGE -->
+                <div class="page active welcome-page" id="welcome-page">
+                    <h2>Hello! :333</h2>
+                    <p style="text-align: center;">Pick a tab on the right to read our entries...</p>
                 </div>
 
-                <!-- Entry 1: Holidays -->
+                <!-- 1. HOLIDAYS -->
                 <div class="page" id="page-1">
-                    <div class="entry-image" style="background-image: url('YOUR_IMAGE_URL_HERE');">
-                        [Holidays Photo Placeholder]
+                    <div class="entry-image" style="background-image: url('YOUR_IMAGE_HERE');">
+                        <span style="color:#aaa; font-style:italic;">[Add Holiday Photo Here]</span>
                     </div>
-                    <h2 style="font-family: 'Caveat', cursive; font-size: 2.5rem;">Holidays</h2>
-                    <p>Our first Christmas together is something I find myself thinking about over and over again, and every time I do, my heart feels full. I never really realized how special Christmas could be until I got to experience it with you. Spending that day together felt new, exciting, and a little scary in the best way.</p>
-                    <p>I know we were both nervous being in each other’s homes and surrounded by each other’s families. I could feel it, and I know you probably felt it too. All I kept thinking about was hoping you were okay, hoping you felt comfortable, and hoping you felt welcome on my side. Seeing you there with my family, singing, laughing, and slowly settling in made me so happy.</p>
-                    <p>When New Year’s came around and we were not together, I realized just how much you had already become a part of my heart. Even though we were apart, I felt comforted knowing that you were just a message or a call away. I carried you with me in my thoughts the entire night.</p>
+                    <h2>Holidays</h2>
+                    <p>Our first Christmas together is something I find myself thinking about over and over again, and every time I do, my heart feels full. I never really realized how special Christmas could be until I got to experience it with you. Spending that day together felt new, exciting, and a little scary in the best way.
+
+                    I know we were both nervous being in each other’s homes and surrounded by each other’s families. I could feel it, and I know you probably felt it too. All I kept thinking about was hoping you were okay, hoping you felt comfortable, and hoping you felt welcome on my side. Seeing you there with my family, singing, laughing, and slowly settling in made me so happy. It meant more to me than I can explain to see you included and treated like you belonged, because to me, you already do.
+
+                    When it came time for me to go with you to your family after midnight, it felt like I was stepping into a different kind of Christmas. One that I was not used to, but one that I really loved experiencing with you. Even though some of your family was still working and everything felt a little chaotic with kids running around and surprises popping up everywhere, I enjoyed every bit of it. There was something so special about seeing you in your own space, with your own family, so comfortable and so yourself. Watching that made me fall for you even more.
+
+                    I know I was a bit drunk and very much fighting my sleep at that point, and I probably was not at my most graceful, but even then, I was genuinely happy. Tired, tipsy, and half asleep, but happy in a way that felt calm and real. Being there with you felt right, like that was exactly where I was supposed to be.
+
+                    When New Year’s came around and we were not together, I realized just how much you had already become a part of my heart. Even though we were apart, I felt comforted knowing that you were just a message or a call away. I carried you with me in my thoughts the entire night. I remember sitting there alone as the clock hit twelve, watching the fireworks light up the sky, and wondering how much better that moment would have felt if you were there beside me. Still, knowing I had you in my heart made the night feel less lonely and more hopeful.
+
+                    That day and that night reminded me that these moments are not really about the celebrations themselves, but about who we wish to share them with. And for me, that person was you. You made my Christmas unforgettable, and you made my New Year feel meaningful even from a distance.
+
+                    I truly hope this is just the beginning, and that I get to spend many more holidays by your side. More Christmases, more New Years, more late nights, more laughter, and more quiet moments that turn into memories. I would choose that again and again, as long as it is with you, my love.</p>
                 </div>
 
-                <!-- Entry 2: Missing You -->
+                <!-- 2. MISSING YOU -->
                 <div class="page" id="page-2">
-                    <h2 style="font-family: 'Caveat', cursive; font-size: 2.5rem;">Missing You Part 3</h2>
-                    <p>It has been some time since I last saw you. After Christmas, and even now, I find myself missing you more than I thought possible. I miss seeing you, holding you, just being near you. Your messages and calls have meant more to me than usual lately. they are small reminders that even when we are apart, you are still here in my heart, keeping me company.</p>
-                    <p>Now that school has started, I feel it even more. My friends talk about their lovers, their little moments and shared stories, and I find myself silently thinking of you, wishing I could share those same little remarks and jokes about you if I had the chance. I keep longing to have you by my side, to feel your presence while the world keeps moving around me.</p>
+                    <h2>Missing You Part 3</h2>
+                    <p>It has been some time since I last saw you. After Christmas, and even now, I find myself missing you more than I thought possible. I miss seeing you, holding you, just being near you. Your messages and calls have meant more to me than usual lately. they are small reminders that even when we are apart, you are still here in my heart, keeping me company.
+
+                    Every night I find myself thinking of you, missing you in ways that make the world feel a little emptier. I even cursed myself for being sick over New Year, for not being able to see you before you went to your cousin’s marriage. It frustrated me, but at the same time, it only made my longing for you grow stronger. I carry this feeling with me, this ache that waits patiently, hoping for the moment I can finally be near you again.
+
+                    Now that school has started, I feel it even more. My friends talk about their lovers, their little moments and shared stories, and I find myself silently thinking of you, wishing I could share those same little remarks and jokes about you if I had the chance. I keep longing to have you by my side, to feel your presence while the world keeps moving around me.
+
+                    Missing you has become a quiet, persistent companion, and even though it sometimes hurts, it reminds me just how much you mean to me. How much I want you close, to laugh together, to talk together, to simply exist in the same space with you again.
+
+                    I hope you know that every thought of you carries warmth, even through the distance, and that I am here, waiting, longing, and cherishing the hope of being near you again.</p>
                 </div>
 
-                <!-- Entry 3: Understand -->
+                <!-- 3. UNDERSTAND -->
                 <div class="page" id="page-3">
-                    <div class="entry-image" style="background-image: url('YOUR_IMAGE_URL_HERE');">
-                        [Understand Photo Placeholder]
+                    <div class="entry-image" style="background-image: url('YOUR_IMAGE_HERE');">
+                        <span style="color:#aaa; font-style:italic;">[Add Understand Photo Here]</span>
                     </div>
-                    <h2 style="font-family: 'Caveat', cursive; font-size: 2.5rem;">Understand</h2>
-                    <p>I want you to know how truly grateful I am for your patience with me, especially considering how sensitive this year has been for us. Ending one year and starting another in such a fragile place was not easy, and yet you stayed gentle with me through it all. Your care and understanding reminded me that love is not just about perfect moments, but about staying even when things feel uncertain.</p>
-                    <p>After our last talk, I felt something shift inside me. For the first time in a long while, I felt like I could loosen the chain around my neck, the weight of my fears, and allow myself to fully love again. It wasn’t instant, and it wasn’t easy, but your patience and understanding made it possible. Knowing that you were willing to walk beside me, even when I was unsure, even when I was confusing or fragile, gave me the courage to open my heart fully.</p>
+                    <h2>Understand</h2>
+                    <p>I want you to know how truly grateful I am for your patience with me, especially considering how sensitive this year has been for us. Ending one year and starting another in such a fragile place was not easy, and yet you stayed gentle with me through it all. Your care and understanding reminded me that love is not just about perfect moments, but about staying even when things feel uncertain.
+
+                    I have to admit, there were times when I was genuinely scared. My insecurities quietly grew inside me, and I started to question how secure I really was in our love. I felt like I was treading on thin ice, unsure of every step, afraid that I might stumble or misstep and somehow push you away. I didn’t always know how to walk toward you without overstepping or hurting what we had, and that fear sometimes made me hesitant, quiet, or overly cautious. I wanted so badly to get it right, to move toward you with confidence, but I wasn’t sure how.
+
+                    Even when I felt unsure, even when my mind imagined the worst or questioned myself, you were there. You kept me grounded. You made me feel safe to be vulnerable. You let me stumble and didn’t judge me for it. You let me express my fears, my doubts, my insecurities, and you met me with patience, care, and love. That meant more to me than I can ever put into words. You gave me the space to feel my feelings, while also showing me that I could trust you completely.
+
+                    After our last talk, I felt something shift inside me. For the first time in a long while, I felt like I could loosen the chain around my neck, the weight of my fears, and allow myself to fully love again. It wasn’t instant, and it wasn’t easy, but your patience and understanding made it possible. Knowing that you were willing to walk beside me, even when I was unsure, even when I was confusing or fragile, gave me the courage to open my heart fully. That feeling came entirely from you.
+
+                    I know it isn’t easy for you either. Limiting your love language, holding back the ways you want to show love, must be hard sometimes. Yet you do it anyway, with grace and kindness, because you care about my boundaries, my comfort, and my pace. I see it, and I treasure it deeply. Thank you for loving me even when I am difficult, for respecting me even when it is hard, and for showing me that love is not just a feeling, but a choice you make every day.
+
+                    Thank you for being my constant support, for never growing tired of me even when I falter, for helping me feel that it is okay to be imperfect, that it is okay to need you. My insecurities sometimes make me overthink, sometimes make me feel small, but your love reminds me that I am enough just as I am, that I am worthy of you, of your heart, and of your time. I want to be the best for you, because you deserve nothing less than all of me, and I am grateful that you make me want to grow, to be better, to love more freely and fully.
+
+                    Thank you for talking things through with me, for meeting me in our conflicts with honesty, patience, and care. Thank you for letting me be honest with my fears, my doubts, and even my moments of confusion. I hope you know that I will always be willing to listen, to talk, and to love you in the same way you have loved me: with patience, understanding, and an unwavering heart.
+
+                    I love you more than I could ever express in words, and every day I am thankful that you are by my side. You are my safe place, my home in a world that often feels uncertain, and my light when my mind clouds with fear. I am grateful for you, for us, and for the chance to walk together, even on the thin ice, because I know that as long as I have you, I will always find my footing.</p>
                 </div>
 
-                <!-- Entry 4: Poetry -->
+                <!-- 4. WITH YOU, ALWAYS -->
                 <div class="page" id="page-4">
-                    <h2 style="font-family: 'Caveat', cursive; font-size: 2.5rem;">With You, Always</h2>
+                    <h2>With You, Always</h2>
                     <div class="poem-box" style="text-align: center;">
                         Even in the quiet, I feel you near,<br>
                         A gentle heartbeat I hold dear.<br>
                         Through every worry, every little fear,<br>
                         Your love whispers softly, “I am here.”<br><br>
+
                         I walked on ice I could not see,<br>
                         Unsure of how to reach you fully.<br>
                         But in your patience, I found my way,<br>
                         And learned to stay, and learned to stay.<br><br>
+
+                        Every moment apart, I longed for you,<br>
+                        Your voice, your touch, your laughter too.<br>
+                        Distance could never dim the light<br>
+                        You bring to me, both day and night.<br><br>
+
                         Thank you for holding me when I shake,<br>
                         For loving me even when I break.<br>
+                        For every gentle word, every tender care,<br>
+                        For proving your love is always there.<br><br>
+
+                        Now my heart is free to bloom,<br>
+                        No longer shadowed, no longer gloom.<br>
+                        With every glance, every little touch,<br>
+                        I am reminded I love you so much.<br><br>
+
+                        And in this love, I find my home,<br>
+                        With you, I am never alone.<br>
+                        Through all my fears, through all I am,<br>
                         I am yours, completely, and I always will be, my love.
                     </div>
                 </div>
 
-                <!-- Entry 5: Poem & Video -->
+                <!-- 5. MELODY -->
                 <div class="page" id="page-5">
-                    <h2 style="font-family: 'Caveat', cursive; font-size: 2.5rem;">Cant Smile Without You</h2>
+                    <h2>Can't Smile Without You</h2>
                     <div class="poem-box" style="background:none; border-left: 5px solid var(--tab-5); text-align: left;">
                         Some days feel quieter than they should,<br>
                         like laughter forgot the way back home.<br>
                         The world still moves, but something’s missing<br>
                         every melody feels unfinished on its own.<br><br>
+
                         When your mood fades, mine follows close,<br>
                         when you shine, my skies turn blue.<br>
                         I try to pretend I’m doing just fine,<br>
@@ -332,12 +375,12 @@
 
             </div>
 
-            <!-- TAB NAVIGATION -->
+            <!-- TABS -->
             <div class="tabs-container">
                 <button class="tab-btn btn-1" onclick="openPage(event, 'page-1', 'Holidays')" onmouseenter="peekTitle('Holidays')" onmouseleave="revertTitle()">
                     <i class="fa-solid fa-holly-berry"></i><span class="tab-label">Holidays</span>
                 </button>
-                <button class="tab-btn btn-2" onclick="openPage(event, 'page-2', 'Missing You')" onmouseenter="peekTitle('Missing You')" onmouseleave="revertTitle()">
+                <button class="tab-btn btn-2" onclick="openPage(event, 'page-2', 'Missing You Part 3')" onmouseenter="peekTitle('Missing You Part 3')" onmouseleave="revertTitle()">
                     <i class="fa-solid fa-heart-crack"></i><span class="tab-label">Missing</span>
                 </button>
                 <button class="tab-btn btn-3" onclick="openPage(event, 'page-3', 'Understand')" onmouseenter="peekTitle('Understand')" onmouseleave="revertTitle()">
@@ -346,7 +389,7 @@
                 <button class="tab-btn btn-4" onclick="openPage(event, 'page-4', 'With You Always')" onmouseenter="peekTitle('With You Always')" onmouseleave="revertTitle()">
                     <i class="fa-solid fa-feather"></i><span class="tab-label">Always</span>
                 </button>
-                <button class="tab-btn btn-5" onclick="openPage(event, 'page-5', 'Cant Smile Without You')" onmouseenter="peekTitle('Cant Smile Without You')" onmouseleave="revertTitle()">
+                <button class="tab-btn btn-5" onclick="openPage(event, 'page-5', 'Can\'t Smile Without You')" onmouseenter="peekTitle('Can\'t Smile Without You')" onmouseleave="revertTitle()">
                     <i class="fa-solid fa-music"></i><span class="tab-label">Melody</span>
                 </button>
             </div>
@@ -380,7 +423,6 @@
             currentPrompt = "What will you read next?";
             header.innerText = currentPrompt;
             
-            // Hide everything including welcome page
             const pages = document.querySelectorAll('.page');
             pages.forEach(p => p.classList.remove('active'));
 
