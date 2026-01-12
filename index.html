@@ -2,10 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Aesthetic Scrapbook</title>
     <!-- Icons and Fonts -->
@@ -75,372 +71,29 @@
             margin-bottom: 25px;
             color: var(--text-dark);
             text-align: center;
-            height: 60px; /* Prevents layout jump when text changes */
-            transition: color 0.3s ease, transform 0.3s ease;
+            height: 60px; /* Fixed height to prevent jumping */
+            transition: all 0.3s ease;
         }
 
-        /* 3. THE BOOK */
-        .book {
-            width: 90%;
-            max-width: 550px;
-            height: 420px;
-            background: var(--paper-color);
-            border-radius: 15px 40px 40px 15px;
-            display: flex;
-            position: relative;
-            box-shadow: 20px 20px 50px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.05);
-            z-index: 10; /* Keeps book body clickable */
-        }
-
-        /* Spine shadow */
-        .book::after {
-            content: '';
-            position: absolute;
-            left: 30px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: rgba(0,0,0,0.03);
-            box-shadow: 2px 0 5px rgba(0,0,0,0.02);
-        }
-
-        /* 4. TABS - OPENING OUTWARD */
-        .tabs-container {
-            position: absolute;
-            left: calc(100% - 15px); /* Tucks slightly behind the right edge */
-            top: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            z-index: 1; /* Behind book cover but above background */
-        }
-
-        .tab-btn {
-            width: 60px;
-            height: 55px;
-            border: none;
-            border-radius: 0 20px 20px 0;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            padding: 0 18px;
-            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.2s, background 0.3s;
-            overflow: hidden;
-            white-space: nowrap;
-            box-shadow: 5px 2px 10px rgba(0,0,0,0.05);
-            pointer-events: auto; /* Ensures they are clickable */
-        }
-
-        .tab-btn:hover {
-            width: 160px;
-            transform: translateX(5px);
-        }
-
-        .tab-btn i {
-            font-size: 1.3rem;
-            min-width: 25px;
-            color: #444;
-            transition: transform 0.3s ease;
-        }
-
-        .tab-btn:hover i {
-            transform: rotate(15deg) scale(1.2);
-        }
-
-        .tab-label {
-            margin-left: 15px;
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
-            font-size: 0.95rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .tab-btn:hover .tab-label {
-            opacity: 1;
-        }
-
-        /* Tab Colors */
-        .btn-1 { background: var(--tab-1); }
-        .btn-2 { background: var(--tab-2); }
-        .btn-3 { background: var(--tab-3); }
-        .btn-4 { background: var(--tab-4); }
-        .btn-5 { background: var(--tab-5); }
-
-        .tab-btn.active {
-            border: 3px solid white;
-            border-left: none;
-            transform: translateX(10px);
-            box-shadow: 8px 4px 15px rgba(0,0,0,0.1);
-        }
-
-        /* 5. PAGES */
-        .content-area {
-            flex: 1;
-            padding: 50px;
-            overflow: hidden;
-        }
-
-        .page {
-            display: none;
-            line-height: 2.2rem;
-            background-image: linear-gradient(#f1f1f1 1px, transparent 1px);
-            background-size: 100% 2.2rem;
-        }
-
-        .page.active { 
-            display: block; 
-            animation: pageTurn 0.6s ease-out;
-        }
-
-        @keyframes pageTurn {
-            0% { opacity: 0; transform: translateX(40px) rotateY(-10deg); }
-            100% { opacity: 1; transform: translateX(0) rotateY(0); }
-        }
-
-        .page h2 {
-            font-family: 'Caveat', cursive;
-            font-size: 2.5rem;
-            margin: 0 0 10px 0;
-            color: #333;
-        }
-
-        .page p {
-            margin: 0;
-            font-size: 1.1rem;
-            color: #555;
-        }
-
-        /* Tape Decoration */
-        .tape {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%) rotate(2deg);
-            width: 100px;
-            height: 35px;
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px dashed rgba(0,0,0,0.1);
-            backdrop-filter: blur(2px);
-            z-index: 20;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Greeting Animation -->
-    <div class="greeting-overlay">
-        <h1>hello...</h1>
-    </div>
-
-    <!-- Dynamic Header -->
-    <h1 class="main-header" id="header-text">What will you read first?</h1>
-
-    <!-- The Scrapbook -->
-    <div class="book">
-        <div class="tape"></div>
-        
-        <div class="content-area">
-            <div class="page active" id="page-1">
-                <h2><i class="fa-solid fa-mug-hot"></i> Cozy Morning</h2>
-                <p>The kettle is singing and the house is still quiet. These early hours are when I feel most like myself. It's time to dream up a beautiful day.</p>
-            </div>
-
-            <div class="page" id="page-2">
-                <h2><i class="fa-solid fa-cloud-moon"></i> Sweet Dreams</h2>
-                <p>I dreamed of a city made entirely of glass and starlight. Every street led to a library that smelled of vanilla and old paper. I didn't want to wake up.</p>
-            </div>
-
-            <div class="page" id="page-3">
-                <h2><i class="fa-solid fa-compass"></i> Travel Notes</h2>
-                <p>One day, I'll go to a place where the mountains meet the sea. I'll carry nothing but a bag of books and a heart full of curiosity.</p>
-            </div>
-
-            <div class="page" id="page-4">
-                <h2><i class="fa-solid fa-wand-magic-sparkles"></i> Spark Ideas</h2>
-                <p>Idea: Collect postcards from everywhere I go and turn them into a giant wall map. Every card will have a memory written on the back.</p>
-            </div>
-
-            <div class="page" id="page-5">
-                <h2><i class="fa-solid fa-heart"></i> Gentle Reminder</h2>
-                <p>Slow down. You don't have to win every race. Sometimes, the most productive thing you can do is rest and be kind to your soul.</p>
-            </div>
-        </div>
-
-        <!-- OUTWARD TABS WITH HOVER EFFECTS -->
-        <div class="tabs-container">
-            <button class="tab-btn btn-1 active" 
-                onclick="openPage(event, 'page-1')" 
-                onmouseenter="previewTitle('Cozy Morning')" 
-                onmouseleave="restoreHeader()">
-                <i class="fa-solid fa-sun"></i>
-                <span class="tab-label">Morning</span>
-            </button>
-            <button class="tab-btn btn-2" 
-                onclick="openPage(event, 'page-2')" 
-                onmouseenter="previewTitle('Sweet Dreams')" 
-                onmouseleave="restoreHeader()">
-                <i class="fa-solid fa-moon"></i>
-                <span class="tab-label">Dreams</span>
-            </button>
-            <button class="tab-btn btn-3" 
-                onclick="openPage(event, 'page-3')" 
-                onmouseenter="previewTitle('Travel Notes')" 
-                onmouseleave="restoreHeader()">
-                <i class="fa-solid fa-plane"></i>
-                <span class="tab-label">Travel</span>
-            </button>
-            <button class="tab-btn btn-4" 
-                onclick="openPage(event, 'page-4')" 
-                onmouseenter="previewTitle('Spark Ideas')" 
-                onmouseleave="restoreHeader()">
-                <i class="fa-solid fa-lightbulb"></i>
-                <span class="tab-label">Ideas</span>
-            </button>
-            <button class="tab-btn btn-5" 
-                onclick="openPage(event, 'page-5')" 
-                onmouseenter="previewTitle('Gentle Reminder')" 
-                onmouseleave="restoreHeader()">
-                <i class="fa-solid fa-heart"></i>
-                <span class="tab-label">Self</span>
-            </button>
-        </div>
-    </div>
-
-    <script>
-        let hasReadFirst = false;
-        let currentDefaultPrompt = "What will you read first?";
-
-        const headerElement = document.getElementById('header-text');
-
-        // Function to change header on hover
-        function previewTitle(title) {
-            headerElement.style.transform = "scale(1.05)";
-            headerElement.style.color = "#ffadad"; // Soft pink accent on hover
-            headerElement.innerText = title;
-        }
-
-        // Function to restore header when mouse leaves
-        function restoreHeader() {
-            headerElement.style.transform = "scale(1)";
-            headerElement.style.color = "var(--text-dark)";
-            headerElement.innerText = currentDefaultPrompt;
-        }
-
-        function openPage(evt, pageId) {
-            // Logic to change the permanent "Default" prompt
-            if (!hasReadFirst && pageId !== 'page-1') {
-                hasReadFirst = true;
-                currentDefaultPrompt = "What will you read next?";
-            } else if (hasReadFirst) {
-                currentDefaultPrompt = "What will you read next?";
-            }
-
-            // Immediately update the header to current page title
-            // (Note: restoreHeader will bring it back to "next" when they stop hovering)
-            headerElement.innerText = currentDefaultPrompt;
-
-            // Page Toggling Logic
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(p => p.classList.remove('active'));
-
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(b => b.classList.remove('active'));
-
-            document.getElementById(pageId).classList.add('active');
-            evt.currentTarget.classList.add('active');
-        }
-    </script>
-</body>
-</html>
-    <title>My Aesthetic Scrapbook</title>
-    <!-- Icons and Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-color: #fcf8f5;
-            --paper-color: #fffdfa;
-            --tab-1: #ffadad;
-            --tab-2: #ffd6a5;
-            --tab-3: #fdffb6;
-            --tab-4: #caffbf;
-            --tab-5: #a0c4ff;
-            --text-dark: #5d576b;
-        }
-
-        * { box-sizing: border-box; }
-
-        body {
-            margin: 0;
-            background-color: var(--bg-color);
-            font-family: 'Quicksand', sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            color: var(--text-dark);
-        }
-
-        /* 1. GREETING ANIMATION */
-        .greeting-overlay {
-            position: fixed;
-            inset: 0;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            pointer-events: none;
-            animation: fadeOut 0.8s ease forwards 2s;
-        }
-
-        .greeting-overlay h1 {
-            font-family: 'Caveat', cursive;
-            font-size: 5rem;
+        .header-peek {
             color: var(--tab-1);
-            animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        @keyframes fadeOut {
-            to { opacity: 0; visibility: hidden; }
-        }
-
-        /* 2. DYNAMIC HEADER */
-        .main-header {
-            font-family: 'Caveat', cursive;
-            font-size: 3.2rem;
-            margin-bottom: 25px;
-            color: var(--text-dark);
-            text-align: center;
-            height: 60px; /* Prevents layout jump when text changes */
-            transition: color 0.3s ease, transform 0.3s ease;
+            transform: scale(1.05);
         }
 
         /* 3. THE BOOK */
         .book {
             width: 90%;
             max-width: 550px;
-            height: 420px;
+            height: 400px;
             background: var(--paper-color);
             border-radius: 15px 40px 40px 15px;
             display: flex;
             position: relative;
             box-shadow: 20px 20px 50px rgba(0,0,0,0.05);
             border: 1px solid rgba(0,0,0,0.05);
-            z-index: 10; /* Keeps book body clickable */
+            z-index: 10;
         }
 
-        /* Spine shadow */
         .book::after {
             content: '';
             position: absolute;
@@ -449,66 +102,59 @@
             bottom: 0;
             width: 2px;
             background: rgba(0,0,0,0.03);
-            box-shadow: 2px 0 5px rgba(0,0,0,0.02);
         }
 
-        /* 4. TABS - OPENING OUTWARD */
+        /* 4. TABS - OUTWARD OPENING */
         .tabs-container {
             position: absolute;
-            left: calc(100% - 15px); /* Tucks slightly behind the right edge */
+            left: calc(100% - 15px);
             top: 40px;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            z-index: 1; /* Behind book cover but above background */
+            z-index: 5;
         }
 
         .tab-btn {
-            width: 60px;
-            height: 55px;
+            width: 55px;
+            height: 50px;
             border: none;
-            border-radius: 0 20px 20px 0;
+            border-radius: 0 15px 15px 0;
             cursor: pointer;
             display: flex;
             align-items: center;
             padding: 0 18px;
-            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.2s, background 0.3s;
+            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.2s;
             overflow: hidden;
             white-space: nowrap;
             box-shadow: 5px 2px 10px rgba(0,0,0,0.05);
-            pointer-events: auto; /* Ensures they are clickable */
         }
 
         .tab-btn:hover {
-            width: 160px;
+            width: 150px;
             transform: translateX(5px);
         }
 
         .tab-btn i {
-            font-size: 1.3rem;
-            min-width: 25px;
-            color: #444;
-            transition: transform 0.3s ease;
-        }
-
-        .tab-btn:hover i {
-            transform: rotate(15deg) scale(1.2);
+            font-size: 1.2rem;
+            min-width: 20px;
+            color: #555;
         }
 
         .tab-label {
             margin-left: 15px;
             font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
-            font-size: 0.95rem;
+            font-weight: 600;
+            font-size: 0.9rem;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s;
         }
 
         .tab-btn:hover .tab-label {
             opacity: 1;
         }
 
-        /* Tab Colors */
+        /* Colors */
         .btn-1 { background: var(--tab-1); }
         .btn-2 { background: var(--tab-2); }
         .btn-3 { background: var(--tab-3); }
@@ -516,58 +162,50 @@
         .btn-5 { background: var(--tab-5); }
 
         .tab-btn.active {
-            border: 3px solid white;
+            border: 2px solid white;
             border-left: none;
-            transform: translateX(10px);
-            box-shadow: 8px 4px 15px rgba(0,0,0,0.1);
+            transform: translateX(8px);
         }
 
         /* 5. PAGES */
         .content-area {
             flex: 1;
-            padding: 50px;
+            padding: 40px 50px;
             overflow: hidden;
         }
 
         .page {
             display: none;
-            line-height: 2.2rem;
-            background-image: linear-gradient(#f1f1f1 1px, transparent 1px);
-            background-size: 100% 2.2rem;
+            line-height: 2rem;
+            background-image: linear-gradient(#f0f0f0 1px, transparent 1px);
+            background-size: 100% 2rem;
         }
 
         .page.active { 
             display: block; 
-            animation: pageTurn 0.6s ease-out;
+            animation: slideIn 0.5s ease-out;
         }
 
-        @keyframes pageTurn {
-            0% { opacity: 0; transform: translateX(40px) rotateY(-10deg); }
-            100% { opacity: 1; transform: translateX(0) rotateY(0); }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .page h2 {
             font-family: 'Caveat', cursive;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin: 0 0 10px 0;
-            color: #333;
-        }
-
-        .page p {
-            margin: 0;
-            font-size: 1.1rem;
-            color: #555;
         }
 
         /* Tape Decoration */
         .tape {
             position: absolute;
-            top: -12px;
+            top: -10px;
             left: 50%;
-            transform: translateX(-50%) rotate(2deg);
-            width: 100px;
-            height: 35px;
-            background: rgba(255, 255, 255, 0.4);
+            transform: translateX(-50%) rotate(-2deg);
+            width: 90px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.6);
             border: 1px dashed rgba(0,0,0,0.1);
             backdrop-filter: blur(2px);
             z-index: 20;
@@ -576,79 +214,77 @@
 </head>
 <body>
 
-    <!-- Greeting Animation -->
     <div class="greeting-overlay">
         <h1>hello...</h1>
     </div>
 
-    <!-- Dynamic Header -->
+    <!-- The Header that changes on hover -->
     <h1 class="main-header" id="header-text">What will you read first?</h1>
 
-    <!-- The Scrapbook -->
     <div class="book">
         <div class="tape"></div>
         
         <div class="content-area">
             <div class="page active" id="page-1">
                 <h2><i class="fa-solid fa-mug-hot"></i> Cozy Morning</h2>
-                <p>The kettle is singing and the house is still quiet. These early hours are when I feel most like myself. It's time to dream up a beautiful day.</p>
+                <p>The best way to start the day is with a quiet mind and a warm drink. I'm feeling very peaceful today.</p>
             </div>
 
             <div class="page" id="page-2">
                 <h2><i class="fa-solid fa-cloud-moon"></i> Sweet Dreams</h2>
-                <p>I dreamed of a city made entirely of glass and starlight. Every street led to a library that smelled of vanilla and old paper. I didn't want to wake up.</p>
+                <p>Last night I dreamed of a city made entirely of glass. The sunlight reflected everywhere like a thousand diamonds.</p>
             </div>
 
             <div class="page" id="page-3">
-                <h2><i class="fa-solid fa-compass"></i> Travel Notes</h2>
-                <p>One day, I'll go to a place where the mountains meet the sea. I'll carry nothing but a bag of books and a heart full of curiosity.</p>
+                <h2><i class="fa-solid fa-map-location-dot"></i> Little Travels</h2>
+                <p>I want to go to a small island where the only way to get around is by bicycle and the ocean is crystal clear.</p>
             </div>
 
             <div class="page" id="page-4">
-                <h2><i class="fa-solid fa-wand-magic-sparkles"></i> Spark Ideas</h2>
-                <p>Idea: Collect postcards from everywhere I go and turn them into a giant wall map. Every card will have a memory written on the back.</p>
+                <h2><i class="fa-solid fa-wand-magic-sparkles"></i> Magic Ideas</h2>
+                <p>New Idea: Paint my plant pots with glowing paint so they look like little lanterns in the dark garden.</p>
             </div>
 
             <div class="page" id="page-5">
-                <h2><i class="fa-solid fa-heart"></i> Gentle Reminder</h2>
-                <p>Slow down. You don't have to win every race. Sometimes, the most productive thing you can do is rest and be kind to your soul.</p>
+                <h2><i class="fa-solid fa-leaf"></i> Gentle Reminder</h2>
+                <p>Don't forget to take a break. You are a human being, not a "human doing." Rest is just as important as work.</p>
             </div>
         </div>
 
-        <!-- OUTWARD TABS WITH HOVER EFFECTS -->
+        <!-- TABS WITH HOVER EVENTS -->
         <div class="tabs-container">
             <button class="tab-btn btn-1 active" 
-                onclick="openPage(event, 'page-1')" 
-                onmouseenter="previewTitle('Cozy Morning')" 
-                onmouseleave="restoreHeader()">
+                onmouseenter="peekTitle('Cozy Morning')" 
+                onmouseleave="revertTitle()"
+                onclick="openPage(event, 'page-1')">
                 <i class="fa-solid fa-sun"></i>
-                <span class="tab-label">Morning</span>
+                <span class="tab-label">Daily</span>
             </button>
             <button class="tab-btn btn-2" 
-                onclick="openPage(event, 'page-2')" 
-                onmouseenter="previewTitle('Sweet Dreams')" 
-                onmouseleave="restoreHeader()">
+                onmouseenter="peekTitle('Sweet Dreams')" 
+                onmouseleave="revertTitle()"
+                onclick="openPage(event, 'page-2')">
                 <i class="fa-solid fa-moon"></i>
                 <span class="tab-label">Dreams</span>
             </button>
             <button class="tab-btn btn-3" 
-                onclick="openPage(event, 'page-3')" 
-                onmouseenter="previewTitle('Travel Notes')" 
-                onmouseleave="restoreHeader()">
-                <i class="fa-solid fa-plane"></i>
+                onmouseenter="peekTitle('Little Travels')" 
+                onmouseleave="revertTitle()"
+                onclick="openPage(event, 'page-3')">
+                <i class="fa-solid fa-compass"></i>
                 <span class="tab-label">Travel</span>
             </button>
             <button class="tab-btn btn-4" 
-                onclick="openPage(event, 'page-4')" 
-                onmouseenter="previewTitle('Spark Ideas')" 
-                onmouseleave="restoreHeader()">
-                <i class="fa-solid fa-lightbulb"></i>
+                onmouseenter="peekTitle('Magic Ideas')" 
+                onmouseleave="revertTitle()"
+                onclick="openPage(event, 'page-4')">
+                <i class="fa-solid fa-star"></i>
                 <span class="tab-label">Ideas</span>
             </button>
             <button class="tab-btn btn-5" 
-                onclick="openPage(event, 'page-5')" 
-                onmouseenter="previewTitle('Gentle Reminder')" 
-                onmouseleave="restoreHeader()">
+                onmouseenter="peekTitle('Gentle Reminder')" 
+                onmouseleave="revertTitle()"
+                onclick="openPage(event, 'page-5')">
                 <i class="fa-solid fa-heart"></i>
                 <span class="tab-label">Self</span>
             </button>
@@ -656,39 +292,28 @@
     </div>
 
     <script>
-        let hasReadFirst = false;
-        let currentDefaultPrompt = "What will you read first?";
+        let currentPrompt = "What will you read first?";
+        const header = document.getElementById('header-text');
 
-        const headerElement = document.getElementById('header-text');
-
-        // Function to change header on hover
-        function previewTitle(title) {
-            headerElement.style.transform = "scale(1.05)";
-            headerElement.style.color = "#ffadad"; // Soft pink accent on hover
-            headerElement.innerText = title;
+        // Function when mouse enters button
+        function peekTitle(title) {
+            header.innerText = title;
+            header.classList.add('header-peek');
         }
 
-        // Function to restore header when mouse leaves
-        function restoreHeader() {
-            headerElement.style.transform = "scale(1)";
-            headerElement.style.color = "var(--text-dark)";
-            headerElement.innerText = currentDefaultPrompt;
+        // Function when mouse leaves button
+        function revertTitle() {
+            header.innerText = currentPrompt;
+            header.classList.remove('header-peek');
         }
 
+        // Function when button is clicked
         function openPage(evt, pageId) {
-            // Logic to change the permanent "Default" prompt
-            if (!hasReadFirst && pageId !== 'page-1') {
-                hasReadFirst = true;
-                currentDefaultPrompt = "What will you read next?";
-            } else if (hasReadFirst) {
-                currentDefaultPrompt = "What will you read next?";
-            }
+            // Update the "permanent" prompt for future reverts
+            currentPrompt = "What will you read next?";
+            header.innerText = currentPrompt;
 
-            // Immediately update the header to current page title
-            // (Note: restoreHeader will bring it back to "next" when they stop hovering)
-            headerElement.innerText = currentDefaultPrompt;
-
-            // Page Toggling Logic
+            // Page switching logic
             const pages = document.querySelectorAll('.page');
             pages.forEach(p => p.classList.remove('active'));
 
@@ -701,4 +326,3 @@
     </script>
 </body>
 </html>
-```[[4](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQEDMqQDr1QvHype1iCkKeqfIQ5y5u_PTHyMIq_VDZxKwbgKSyjEk0n1cdq621jVeTxSIjcT1GHW4s-J8vWTECYlI1QL2Xg8vU-HDGEIq7_H36Zs-KRGxtewqCakFZNtjEbT9cX82skcCOplWSN5Yq00yE6ZmcHEKz99u8Bc3yjwPo6EsWjQ)][[5](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQE-nl4G6oUzXvjM8VZ2nM4q1k-BIuV_0osvG7HR64UQbOk6bAzsEKKP2Vz18dj4rpJ0kxWR2gJ1FT2YimpkNmY9-I86sNF0anvjzT6ofou0rKv7Gn59dwcuG-sLgfg4z0Ssk-TM80RXRAanP-UX9FDqfFcC6KYgPL85c9NdB3FqCrDmvLo0-VAw-QtEjfCmRkomoZ9ngCIZ_ZgIDrlJNf0%3D)][[7](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQGkkK-0V3rFFsDklJo8QAlK1HxQlHRjxxMf7orMVSv9Wmdc4TKMoQYB3g4oggnejzPvPn3Q2JAhP5HAGFoySyhKQDDjAvdfHRWjnAi7q5kcz90Hkh_WOSbJTzf1PwnDeNhBWsNIxA26WrA4ElXgY4lrwg2oIE2HM064VE2guXgX9hvACuEnTfNvFsV8weoZlCbiy3pCGPQEzwz1WmK7QRQctqU%3D)][[8](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQEKV3PTNPd0J890KybnY5hXtQtsqkbikckLoGNJlSTWS_oNS4eU_z-qABCrl38keFWErzA1PIJ4W8ZE87FKqC4PkIyw2Y52WMeUB9yEDdwFsTTOEgeuLjk7SUpGYv_-MAJGsA0OHEarmtM1oy6pM7orXmlqGTgbHG4OrdJcN65f_MPC-btDlXxYTOiE48MRSWtNM-9NoY4KAB3FIZ05FSA_SKq8)][[9](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQHi7fX5Cdez1WS7se0Y_sxMq9CY3mlDXvbHIglCbkKGqJEZbpgVPCnKT-i76TDAPWNO48SpoFVcezwlmMt5YTrxFFRO12ttEHvYGa7wxDs8WWiozcWAgyWNyk9hUWnVCW5Ew3VZpyqm7XBcOI_PdwBpF7eGRt1xdHcJzeKSPxU_d5JVfQedf8E%3D)][[13](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQEZvGUMOQJc2CwSXXAuiq_BQP7qKHnSlo2KwiXNu1Pnos0MpEElodOSxZInieFMkv5YmGe6hP3sQI_vupaycFaZvbqq7ovlwf_Liz0wUNfn7jnq6IyDmQAnM0MWAni5ey4gxceo6tA%3D)][[14](https://www.google.com/url?sa=E&q=https%3A%2F%2Fvertexaisearch.cloud.google.com%2Fgrounding-api-redirect%2FAUZIYQFnilYH2itizYDgPXvNyyWFL-DH8rZ1kNiLDbxUCr5RnlI7FSw9ZF4SjpcesMssaF6wYjpvb4jLrb1V-797B2punFdvZxl9o121K7TgyGVi5-NrBJ20lWYT-u4HAUDzBSMdZ9r-HuXMPEy5mJsC_tk1XAHooYOYcRfxIgI1_dbFU9f5WpI9ujr3TBwB_FKG5e1yIoo3fWyyPwiuVIU%3D)]
