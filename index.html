@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our 10 Months | Aesthetic Journal</title>
+    <title>Our 10 Months | A Love Story</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #fcf8f5;
-            --paper-color: #fffdfa;
+            --bg-color: #fef9f8;
+            --paper-color: #fffdfc;
             --tab-1: #ffadad; 
             --tab-2: #ffd6a5; 
             --tab-3: #fdffb6; 
             --tab-4: #caffbf; 
             --tab-5: #a0c4ff; 
             --text-dark: #5d576b;
+            --soft-shadow: 0 20px 50px rgba(255, 173, 173, 0.15);
         }
 
         * { box-sizing: border-box; }
+        
         body {
             margin: 0;
-            background-color: var(--bg-color);
+            background: var(--bg-color);
             font-family: 'Quicksand', sans-serif;
             display: flex;
             flex-direction: column;
@@ -30,52 +32,84 @@
             align-items: center;
             min-height: 100vh;
             color: var(--text-dark);
-            overflow-x: hidden;
+            overflow: hidden;
+            perspective: 1000px;
         }
 
-        /* 1. GREETING ANIMATION */
+        /* 1. ANIMATED BACKGROUND */
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #ffffff 0%, #fff0f0 100%);
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 173, 173, 0.3);
+            font-size: 20px;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* 2. GREETING ANIMATION */
         .greeting-overlay {
             position: fixed;
             inset: 0;
-            background: white;
+            background: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 10000;
-            animation: fadeOut 0.8s ease forwards 2s;
-            pointer-events: none;
-        }
-        .greeting-overlay h1 {
-            font-family: 'Caveat', cursive;
-            font-size: 6rem;
-            color: var(--tab-1);
-            animation: popIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: fadeOut 1s ease forwards 2.5s;
         }
 
-        /* 2. INITIAL ANNIVERSARY WRAPPER */
+        .greeting-overlay h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 7rem;
+            color: var(--tab-1);
+            text-shadow: 2px 2px 10px rgba(255, 173, 173, 0.3);
+            animation: heartBeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* 3. ANNIVERSARY GIFT (Stage 1) */
         #anniversary-screen {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             z-index: 10;
+            animation: float 4s ease-in-out infinite;
         }
 
         .wrapped-book {
             width: 320px;
             height: 420px;
             background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
             position: relative;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.5s;
+            transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 10px solid var(--tab-1);
+            overflow: hidden;
         }
-        .wrapped-book:hover { transform: scale(1.05) rotate(-3deg); }
+
+        .wrapped-book:hover {
+            transform: scale(1.05) rotate(-3deg) translateY(-10px);
+            box-shadow: 0 40px 80px rgba(255, 173, 173, 0.3);
+        }
+
         .wrapped-book::before {
             content: ''; position: absolute; width: 50px; height: 100%;
             background: var(--tab-1); left: 50%; transform: translateX(-50%);
@@ -84,126 +118,164 @@
             content: ''; position: absolute; height: 50px; width: 100%;
             background: var(--tab-1); top: 50%; transform: translateY(-50%);
         }
+
         .anniversary-tag {
             background: white;
-            padding: 15px 30px;
-            border: 2px dashed var(--tab-1);
-            z-index: 2;
+            padding: 15px 35px;
+            border: 3px dashed var(--tab-1);
+            z-index: 5;
             font-family: 'Caveat', cursive;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             transform: rotate(-5deg);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
 
-        /* 3. FIRST MESSAGE MODAL */
+        /* 4. MODAL LETTER */
         .letter-modal {
             position: fixed;
             top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
-            width: 90%; max-width: 600px;
-            background: var(--paper-color); padding: 50px;
-            border-radius: 15px; box-shadow: 0 40px 80px rgba(0,0,0,0.2);
-            z-index: 500; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            max-height: 85vh; overflow-y: auto;
+            width: 90%; max-width: 650px;
+            background: var(--paper-color);
+            padding: 60px;
+            border-radius: 25px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.15);
+            z-index: 500;
+            transition: 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.5);
         }
+
         .letter-modal.open { transform: translate(-50%, -50%) scale(1); }
-        .letter-modal p { text-align: justify; line-height: 1.8; margin-bottom: 20px; }
+
+        .letter-modal p {
+            text-align: justify;
+            line-height: 2;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
 
         .proceed-btn {
-            display: block; width: fit-content; margin: 30px auto 0;
-            padding: 15px 40px; background: var(--tab-1); border: none;
-            border-radius: 30px; font-family: 'Quicksand', sans-serif;
-            font-weight: bold; cursor: pointer; transition: 0.3s; color: white;
+            display: block; margin: 40px auto 0;
+            padding: 15px 50px;
+            background: linear-gradient(135deg, var(--tab-1), #ff8b8b);
+            border: none; border-radius: 50px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700; color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(255, 173, 173, 0.4);
         }
-        .proceed-btn:hover { background: #ff8b8b; transform: translateY(-3px); }
 
-        /* 4. MAIN JOURNAL LAYOUT */
+        .proceed-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 30px rgba(255, 173, 173, 0.6); }
+
+        /* 5. THE MAIN JOURNAL */
         #main-journal {
             display: none;
             flex-direction: column;
             align-items: center;
             width: 100%;
-            animation: fadeIn 1s forwards;
+            animation: fadeIn 1.2s forwards;
             padding: 20px;
         }
 
         .main-header {
             font-family: 'Caveat', cursive;
-            font-size: 3.8rem;
+            font-size: 4rem;
             margin-bottom: 20px;
-            height: 70px;
-            transition: 0.3s;
+            height: 80px;
+            text-shadow: 2px 2px 0px white, 4px 4px 10px rgba(0,0,0,0.05);
         }
 
         .book {
             width: 100%;
-            max-width: 850px;
-            height: 650px;
+            max-width: 900px;
+            height: 700px;
             background: var(--paper-color);
-            border-radius: 15px 50px 50px 15px;
+            border-radius: 20px 60px 60px 20px;
             display: flex;
             position: relative;
-            box-shadow: 30px 30px 70px rgba(0,0,0,0.07);
+            box-shadow: 40px 40px 80px rgba(0,0,0,0.08);
             border: 1px solid rgba(0,0,0,0.05);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Paper Texture Overlay */
+        .book::before {
+            content: ''; position: absolute; inset: 0;
+            background-image: url('https://www.transparenttextures.com/patterns/linen-paper.png');
+            opacity: 0.4; pointer-events: none; border-radius: inherit;
+        }
+
+        /* Spine detail */
+        .book::after {
+            content: ''; position: absolute; left: 40px; top: 0; bottom: 0;
+            width: 3px; background: rgba(0,0,0,0.03);
+            box-shadow: 2px 0 5px rgba(0,0,0,0.02);
         }
 
         .content-area {
             flex: 1;
-            padding: 60px 80px;
+            padding: 70px 90px;
             overflow-y: auto;
             position: relative;
+            z-index: 1;
         }
 
-        /* 5. PAGE STYLING */
+        /* 6. PAGE CONTENT */
         .page { display: none; }
-        .page.active { display: block; animation: slideIn 0.5s ease forwards; }
+        .page.active { display: block; animation: slideUp 0.7s cubic-bezier(0.23, 1, 0.32, 1); }
 
         .page h2 { 
             font-family: 'Caveat', cursive; 
-            font-size: 3.5rem; 
-            margin-bottom: 20px; 
-            color: var(--text-dark); 
-            text-align: center; 
-            font-weight: 700;
+            font-size: 4rem; 
+            margin-bottom: 30px; 
+            text-align: center;
+            color: var(--text-dark);
         }
-        .page p { text-align: justify; line-height: 2rem; margin-bottom: 20px; white-space: pre-line; }
 
-        /* Cover/Welcome Page Styling */
-        .welcome-page-content {
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            height: 100%; text-align: center;
+        .page p { 
+            text-align: justify; 
+            line-height: 2.2rem; 
+            margin-bottom: 25px; 
+            white-space: pre-line;
+            font-size: 1.1rem;
         }
-        .welcome-page-content h2 { font-size: 5.5rem; color: var(--tab-1); font-family: 'Caveat', cursive; }
 
-        /* 6. TABS (OUTWARD) */
+        .welcome-page-content h2 { font-size: 6rem; color: var(--tab-1); }
+
+        /* 7. TABS (OUTWARD) */
         .tabs-container {
             position: absolute;
-            left: calc(100% - 10px);
-            top: 60px;
+            left: calc(100% - 15px);
+            top: 70px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 18px;
         }
+
         .tab-btn {
-            width: 60px; height: 60px;
-            border: none; border-radius: 0 20px 20px 0;
+            width: 65px; height: 65px;
+            border: none; border-radius: 0 25px 25px 0;
             cursor: pointer; display: flex; align-items: center;
-            padding: 0 20px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 0 22px; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             overflow: hidden; white-space: nowrap;
-            box-shadow: 6px 3px 15px rgba(0,0,0,0.05);
+            box-shadow: 8px 4px 15px rgba(0,0,0,0.05);
         }
-        .tab-btn:hover { width: 175px; }
+
+        .tab-btn:hover { width: 200px; transform: scale(1.05); }
         
-        /* CONSISTENT TAB FONT */
         .tab-label { 
-            margin-left: 15px; 
+            margin-left: 20px; 
             opacity: 0; 
             transition: 0.3s; 
             font-weight: 700; 
-            font-size: 1.6rem; 
+            font-size: 1.8rem; 
             font-family: 'Caveat', cursive;
         }
+
         .tab-btn:hover .tab-label { opacity: 1; }
-        .tab-btn.active { transform: translateX(10px); border: 2px solid white; border-left: none; }
+        .tab-btn.active { transform: translateX(15px); border: 3px solid white; border-left: none; }
 
         .btn-1 { background: var(--tab-1); }
         .btn-2 { background: var(--tab-2); }
@@ -211,56 +283,64 @@
         .btn-4 { background: var(--tab-4); }
         .btn-5 { background: var(--tab-5); }
 
-        /* 7. ASSETS */
+        /* 8. ASSETS */
         .entry-image {
-            width: 100%; height: 320px;
-            background: #f0f0f0; margin-bottom: 30px;
-            border-radius: 15px; border: 10px solid white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 100%; height: 350px;
+            background: #f7f7f7; margin-bottom: 40px;
+            border-radius: 20px; border: 12px solid white;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
             display: flex; align-items: center; justify-content: center;
             background-size: cover; background-position: center;
         }
-        .video-container {
-            margin-top: 30px; border-radius: 15px;
-            overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
+
         .poem-box {
             font-family: 'Caveat', cursive;
-            font-size: 2rem; line-height: 2.6rem;
-            padding: 30px; background: rgba(255, 173, 173, 0.05);
-            border-radius: 15px; margin-bottom: 30px;
-            text-align: center; /* CENTER POEMS */
+            font-size: 2.2rem; line-height: 2.8rem;
+            padding: 40px; background: rgba(255, 173, 173, 0.03);
+            border-radius: 20px; margin-bottom: 40px;
+            text-align: center;
+            border: 1px dashed rgba(255, 173, 173, 0.2);
         }
 
-        /* Animations */
+        .video-container {
+            margin-top: 40px; border-radius: 20px;
+            overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border: 8px solid white;
+        }
+
+        /* ANIMATION KEYFRAMES */
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
     </style>
 </head>
 <body>
+
+    <!-- Animated Particles -->
+    <div class="bg-animation" id="bg-animation"></div>
 
     <!-- Happy 10th Greeting -->
     <div class="greeting-overlay">
         <h1>Happy 10th!</h1>
     </div>
 
-    <!-- STAGE 1: WRAPPED GIFT -->
+    <!-- STAGE 1: THE GIFT -->
     <div id="anniversary-screen">
         <div class="wrapped-book" onclick="openLetter()">
             <div class="anniversary-tag">10th Month</div>
         </div>
         
         <div class="letter-modal" id="letter">
-            <h2 style="font-family: 'Caveat', cursive; font-size: 3.5rem; margin-top:0; color: var(--tab-1); text-align: center;">Happy 10 months to us!</h2>
+            <h2 style="font-family: 'Caveat', cursive; font-size: 4rem; margin-top:0; color: var(--tab-1); text-align: center;">Happy 10 months to us!</h2>
             <p>Happy 10 months to us! I can hardly believe how fast these months have gone by. Looking back, I feel so happy and grateful for every little moment we’ve shared. The laughter, the quiet talks, the times we’ve been a little unsure but held on anyway. Even in the moments when I felt fragile or nervous, your understanding and patience have always been my anchor. You’ve made it so easy for me to feel safe, to trust, and to love without holding back, and I can’t thank you enough for that.</p>
             <p>Some people say the number 10 represents balance, a kind of completion, and a step toward something bigger. To me, it feels like that in the sweetest way. These ten months aren’t just numbers, they’re a little celebration of everything we’ve built together, of all the love, care, and patience we’ve shared, and of the ways we’ve grown side by side. Even when life has felt uncertain or my heart has been cautious, you’ve helped me breathe, trust, and feel at home in your love.</p>
             <p>My heart keeps seeking you more with each passing day. I find myself smiling at thoughts of you, missing you when we’re apart, and holding onto the joy of being with you when we’re together. I’ve felt so lucky, not just for the fun moments or the memories, but for the way you understand me in ways no one else does. How you listen, how you meet me in my fears, and how your love feels steady and comforting even when I feel unsure.</p>
             <p>I feel grateful for you in ways I can’t fully express. You’ve helped me open my heart in ways I didn’t think were possible, and every day I’m reminded how patient, kind, and amazing you are. Ten months may seem like just a number, but to me, it’s a milestone that marks so much more than that.</p>
             <p>I can’t wait for everything still ahead, the mornings, the nights, the little memories and surprises good or bad yet to come. Thank you for being mine, for understanding me, and for loving me through it all. Here’s to us, to our ten months, and to every moment we’ll share after this. I love you so much, more than words can say, and I always will.</p>
-            <button class="proceed-btn" onclick="startJournal()">Open Journal →</button>
+            <button class="proceed-btn" onclick="startJournal()">Open My Heart →</button>
         </div>
     </div>
 
@@ -275,14 +355,14 @@
                 <div class="page active" id="welcome-page">
                     <div class="welcome-page-content">
                         <h2>Hello! :333</h2>
-                        <p style="text-align: center;">Pick a tab on the right to read our entries...</p>
+                        <p style="text-align: center; font-size: 1.5rem; font-family: 'Caveat', cursive;">I've gathered my thoughts for you here.<br>Choose a tab on the right to start our journey...</p>
                     </div>
                 </div>
 
                 <!-- 1. HOLIDAYS -->
                 <div class="page" id="page-1">
-                    <div class="entry-image">
-                        <span style="color:#aaa; font-style:italic;">[Add Holiday Photo Here]</span>
+                    <div class="entry-image" style="background-image: url('ADD_YOUR_IMAGE_URL');">
+                        <span style="color:#ccc;">[Click to Add Holiday Memory]</span>
                     </div>
                     <h2>Holidays</h2>
                     <p>Our first Christmas together is something I find myself thinking about over and over again, and every time I do, my heart feels full. I never really realized how special Christmas could be until I got to experience it with you. Spending that day together felt new, exciting, and a little scary in the best way.
@@ -316,8 +396,8 @@
 
                 <!-- 3. UNDERSTAND -->
                 <div class="page" id="page-3">
-                    <div class="entry-image">
-                        <span style="color:#aaa; font-style:italic;">[Add Understand Photo Here]</span>
+                    <div class="entry-image" style="background-image: url('ADD_YOUR_IMAGE_URL');">
+                        <span style="color:#ccc;">[Click to Add a Comforting Image]</span>
                     </div>
                     <h2>Understand</h2>
                     <p>I want you to know how truly grateful I am for your patience with me, especially considering how sensitive this year has been for us. Ending one year and starting another in such a fragile place was not easy, and yet you stayed gentle with me through it all. Your care and understanding reminded me that love is not just about perfect moments, but about staying even when things feel uncertain.
@@ -337,7 +417,7 @@
                     I love you more than I could ever express in words, and every day I am thankful that you are by my side. You are my safe place, my home in a world that often feels uncertain, and my light when my mind clouds with fear. I am grateful for you, for us, and for the chance to walk together, even on the thin ice, because I know that as long as I have you, I will always find my footing.</p>
                 </div>
 
-                <!-- 4. WITH YOU, ALWAYS -->
+                <!-- 4. POEM -->
                 <div class="page" id="page-4">
                     <h2>With You, Always</h2>
                     <div class="poem-box">
@@ -351,20 +431,10 @@
                         But in your patience, I found my way,<br>
                         And learned to stay, and learned to stay.<br><br>
 
-                        Every moment apart, I longed for you,<br>
-                        Your voice, your touch, your laughter too.<br>
-                        Distance could never dim the light<br>
-                        You bring to me, both day and night.<br><br>
-
                         Thank you for holding me when I shake,<br>
                         For loving me even when I break.<br>
                         For every gentle word, every tender care,<br>
                         For proving your love is always there.<br><br>
-
-                        Now my heart is free to bloom,<br>
-                        No longer shadowed, no longer gloom.<br>
-                        With every glance, every little touch,<br>
-                        I am reminded I love you so much.<br><br>
 
                         And in this love, I find my home,<br>
                         With you, I am never alone.<br>
@@ -376,7 +446,7 @@
                 <!-- 5. MELODY -->
                 <div class="page" id="page-5">
                     <h2>Can't Smile Without You</h2>
-                    <div class="poem-box" style="background:none; border-left: 5px solid var(--tab-5); text-align: center;">
+                    <div class="poem-box" style="background:none; border-left: 5px solid var(--tab-5); border-radius: 0;">
                         Some days feel quieter than they should,<br>
                         like laughter forgot the way back home.<br>
                         The world still moves, but something’s missing<br>
@@ -388,13 +458,13 @@
                         but honestly, I cant smile without you.
                     </div>
                     <div class="video-container">
-                        <iframe width="100%" height="350" src="https://www.youtube.com/embed/vCvRQ85r1ig?si=1JFvZ8n2TJwqDjGa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="100%" height="400" src="https://www.youtube.com/embed/S_8S_f7f9-8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
 
             </div>
 
-            <!-- TABS -->
+            <!-- TABS (OUTWARD) -->
             <div class="tabs-container">
                 <button class="tab-btn btn-1" onclick="openPage(event, 'page-1', 'Holidays')" onmouseenter="peekTitle('Holidays')" onmouseleave="revertTitle()">
                     <i class="fa-solid fa-holly-berry"></i><span class="tab-label">Holidays</span>
@@ -416,6 +486,22 @@
     </div>
 
     <script>
+        // BACKGROUND PARTICLES SCRIPT
+        const bg = document.getElementById('bg-animation');
+        const colors = ['#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#a0c4ff'];
+        
+        for (let i = 0; i < 30; i++) {
+            const heart = document.createElement('i');
+            heart.className = 'fa-solid fa-heart floating-heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.color = colors[Math.floor(Math.random() * colors.length)] + '44';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            bg.appendChild(heart);
+        }
+
+        // NAVIGATION SCRIPT
         let currentPrompt = "What will you read first?";
         const header = document.getElementById('header-text');
 
@@ -431,11 +517,13 @@
         function peekTitle(title) {
             header.innerText = title;
             header.style.color = "var(--tab-1)";
+            header.style.textShadow = "2px 2px 20px rgba(255, 173, 173, 0.4)";
         }
 
         function revertTitle() {
             header.innerText = currentPrompt;
             header.style.color = "var(--text-dark)";
+            header.style.textShadow = "none";
         }
 
         function openPage(evt, pageId, title) {
@@ -450,6 +538,9 @@
 
             document.getElementById(pageId).classList.add('active');
             evt.currentTarget.classList.add('active');
+            
+            // Auto-scroll to top of content
+            document.querySelector('.content-area').scrollTop = 0;
         }
     </script>
 </body>
