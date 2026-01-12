@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Aesthetic Journal</title>
+    <!-- Importing a cute font -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables for easy aesthetic changes */
+        :root {
+            --bg-color: #fdf6f0;
+            --accent-pink: #ffcad4;
+            --accent-purple: #b28dff;
+            --accent-blue: #a0e7e5;
+            --accent-green: #b4f8c8;
+            --accent-yellow: #fbe7c6;
+            --text-color: #5d576b;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* 1. GREETING ANIMATION */
+        .greeting-screen {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--white);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            animation: fadeOut 1s ease-in-out 2.5s forwards;
+        }
+
+        .hello-text {
+            font-family: 'Pacifico', cursive;
+            font-size: 5rem;
+            color: var(--accent-purple);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1.5s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        /* 2. MAIN LAYOUT */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-family: 'Pacifico', cursive;
+            color: var(--accent-purple);
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        /* 3. INTERACTIVE BUTTONS */
+        .button-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        .journal-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        /* Individual button colors */
+        .btn-daily { background-color: var(--accent-pink); }
+        .btn-dreams { background-color: var(--accent-purple); color: white; }
+        .btn-travel { background-color: var(--accent-blue); }
+        .btn-ideas { background-color: var(--accent-green); }
+        .btn-notes { background-color: var(--accent-yellow); }
+
+        .journal-btn:hover {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .journal-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* 4. JOURNAL ENTRIES AREA */
+        .entries-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .entry-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border-left: 8px solid var(--accent-pink);
+            transition: 0.3s;
+        }
+
+        .entry-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .entry-date {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .entry-card h3 {
+            margin: 0 0 10px 0;
+            color: var(--accent-purple);
+        }
+
+        .entry-card p {
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Simple decorative circles */
+        .decoration {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(50px);
+            opacity: 0.5;
+        }
+        .circle-1 { width: 300px; height: 300px; background: var(--accent-pink); top: -100px; left: -100px; }
+        .circle-2 { width: 200px; height: 200px; background: var(--accent-blue); bottom: 10%; right: -50px; }
+    </style>
+</head>
+<body>
+
+    <!-- Hello Greeting Animation -->
+    <div class="greeting-screen">
+        <div class="hello-text">Hello... ✨</div>
+    </div>
+
+    <!-- Background Decorations -->
+    <div class="decoration circle-1"></div>
+    <div class="decoration circle-2"></div>
+
+    <div class="container">
+        <header>
+            <h1>My Digital Journal</h1>
+        </header>
+
+        <!-- 5 Interactive Category Buttons -->
+        <nav class="button-nav">
+            <button class="journal-btn btn-daily">Daily Life</button>
+            <button class="journal-btn btn-dreams">Sweet Dreams</button>
+            <button class="journal-btn btn-travel">Travel Logs</button>
+            <button class="journal-btn btn-ideas">Big Ideas</button>
+            <button class="journal-btn btn-notes">Secret Notes</button>
+        </nav>
+
+        <!-- Sample Entry Area -->
+        <div class="entries-grid">
+            <div class="entry-card">
+                <span class="entry-date">January 12, 2026</span>
+                <h3>A Sunny Morning</h3>
+                <p>Today I started my new digital journal. The colors feel so peaceful! I want to write here every morning while drinking my matcha tea...</p>
+            </div>
+
+            <div class="entry-card" style="border-left-color: var(--accent-blue);">
+                <span class="entry-date">January 11, 2026</span>
+                <h3>Starry Night Thoughts</h3>
+                <p>Saw the moon tonight and it reminded me of that trip to the seaside. I should definitely plan another trip soon.</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
