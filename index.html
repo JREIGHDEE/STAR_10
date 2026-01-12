@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our 10 Months | Aesthetic Journal</title>
+    <title>Happy 10 Months!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #fcf8f5;
+            --bg-color: #fdf6f0; /* Soft Peach */
             --paper-color: #fffdfa;
-            --accent: #ffadad;
-            --tab-1: #ffadad;
-            --tab-2: #ffd6a5;
-            --tab-3: #fdffb6;
-            --tab-4: #caffbf;
-            --tab-5: #a0c4ff;
+            --tab-1: #ffadad; /* Pastel Red/Pink */
+            --tab-2: #ffd6a5; /* Pastel Orange */
+            --tab-3: #fdffb6; /* Pastel Yellow */
+            --tab-4: #caffbf; /* Pastel Green */
+            --tab-5: #a0c4ff; /* Pastel Blue */
+            --tab-6: #bdb2ff; /* Pastel Purple */
             --text-dark: #5d576b;
         }
 
@@ -29,12 +29,12 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
+            height: 100vh;
+            overflow: hidden;
             color: var(--text-dark);
         }
 
-        /* 1. GREETING OVERLAY */
+        /* 1. GREETING ANIMATION */
         .greeting-overlay {
             position: fixed;
             inset: 0;
@@ -43,316 +43,278 @@
             justify-content: center;
             align-items: center;
             z-index: 10000;
-            animation: fadeOut 0.8s ease forwards 1.5s;
+            animation: fadeOut 1s ease forwards 2.5s;
         }
         .greeting-overlay h1 {
             font-family: 'Caveat', cursive;
-            font-size: 5rem;
-            color: var(--accent);
-            animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 5.5rem;
+            color: var(--tab-6);
+            animation: popIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* 2. INITIAL ANNIVERSARY LETTER SCREEN */
-        #anniversary-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: 1s ease;
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
         }
 
-        .wrapped-book {
-            width: 280px;
-            height: 380px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            position: relative;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.5s;
-            border: 8px solid var(--tab-1);
-        }
-
-        .wrapped-book:hover { transform: scale(1.05) rotate(-2deg); }
-
-        /* Ribbon */
-        .wrapped-book::before {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 100%;
-            background: var(--tab-1);
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .wrapped-book::after {
-            content: '';
-            position: absolute;
-            height: 40px;
-            width: 100%;
-            background: var(--tab-1);
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .anniversary-tag {
-            background: white;
-            padding: 10px 20px;
-            border: 2px dashed var(--tab-1);
-            z-index: 2;
-            font-family: 'Caveat', cursive;
-            font-size: 2rem;
-            transform: rotate(-5deg);
-        }
-
-        /* The Hidden Letter */
-        .letter-modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 90%;
-            max-width: 500px;
-            background: var(--paper-color);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
-            z-index: 500;
-            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        .letter-modal.open { transform: translate(-50%, -50%) scale(1); }
-
-        .proceed-btn {
-            margin-top: 20px;
-            padding: 10px 25px;
-            background: var(--tab-1);
-            border: none;
-            border-radius: 20px;
-            font-family: 'Quicksand', sans-serif;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .proceed-btn:hover { background: #ff8b8b; transform: scale(1.1); }
-
-        /* 3. MAIN JOURNAL (Hidden initially) */
-        #main-journal {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            animation: fadeIn 1s forwards;
-        }
-
+        /* 2. DYNAMIC HEADER */
         .main-header {
             font-family: 'Caveat', cursive;
             font-size: 3rem;
             margin-bottom: 20px;
-            height: 50px;
+            text-align: center;
+            height: 60px;
+            transition: 0.3s;
+        }
+
+        /* 3. THE JOURNAL (BOOK) */
+        .book-container {
+            perspective: 1500px;
+            z-index: 10;
         }
 
         .book {
-            width: 90%;
-            max-width: 650px;
-            height: 550px;
-            background: var(--paper-color);
-            border-radius: 15px 40px 40px 15px;
-            display: flex;
+            width: 550px;
+            height: 450px;
             position: relative;
-            box-shadow: 20px 20px 50px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.05);
+            transform-style: preserve-3d;
+            transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+            cursor: pointer;
         }
 
-        .content-area {
-            flex: 1;
+        /* Closed state rotation */
+        .book.closed { transform: rotateY(0deg); }
+        .book.open { transform: rotateY(0deg); cursor: default; }
+
+        /* Cover and Pages */
+        .cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--tab-6);
+            border-radius: 10px 25px 25px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            backface-visibility: hidden;
+            transition: 1s;
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .book.open .cover {
+            transform: rotateY(-140deg);
+            pointer-events: none;
+        }
+
+        .cover-title {
+            color: white;
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .inner-paper {
+            position: absolute;
+            width: 98%;
+            height: 100%;
+            left: 1%;
+            background: var(--paper-color);
+            border-radius: 5px 35px 35px 5px;
+            box-shadow: inset 10px 0 20px rgba(0,0,0,0.05);
             padding: 40px 50px;
             overflow-y: auto;
-            position: relative;
+            z-index: 10;
         }
 
-        .page {
-            display: none;
-            line-height: 1.8rem;
+        /* 4. PAGES CONTENT */
+        .page-content { display: none; }
+        .page-content.active { 
+            display: block; 
+            animation: fadeIn 0.8s ease;
         }
-        .page.active { display: block; animation: slideIn 0.5s ease; }
 
-        /* 4. TABS OUTWARD */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .hello-page {
+            text-align: center;
+            margin-top: 80px;
+        }
+        .hello-page h2 { font-size: 4rem; font-family: 'Caveat', cursive; color: var(--tab-6); }
+
+        .entry-image {
+            width: 100%; height: 180px;
+            background: #eee; border-radius: 15px;
+            margin-bottom: 15px; border: 4px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center;
+            font-style: italic; color: #aaa;
+        }
+
+        .poem-box {
+            background: rgba(189, 178, 255, 0.1);
+            padding: 20px; border-radius: 15px;
+            font-family: 'Caveat', cursive; font-size: 1.4rem;
+            margin-bottom: 20px; line-height: 1.8rem;
+        }
+
+        /* 5. TABS - OUTWARD */
         .tabs-container {
             position: absolute;
             left: calc(100% - 10px);
             top: 40px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
+            visibility: hidden; /* Hidden until book opens */
+            opacity: 0;
+            transition: 0.5s;
         }
+        .book.open + .tabs-container { visibility: visible; opacity: 1; }
+
         .tab-btn {
-            width: 50px; height: 50px;
+            width: 55px; height: 50px;
             border: none; border-radius: 0 15px 15px 0;
             cursor: pointer; display: flex; align-items: center;
-            padding: 0 15px; transition: 0.4s; overflow: hidden;
+            padding: 0 18px; transition: 0.4s; overflow: hidden;
             white-space: nowrap; box-shadow: 5px 2px 10px rgba(0,0,0,0.05);
         }
-        .tab-btn:hover { width: 140px; }
-        .tab-label { margin-left: 15px; opacity: 0; transition: 0.3s; font-weight: 600; }
+        .tab-btn:hover { width: 150px; }
+        .tab-label { margin-left: 15px; opacity: 0; transition: 0.2s; font-weight: 600; }
         .tab-btn:hover .tab-label { opacity: 1; }
-        .tab-btn.active { transform: translateX(5px); border: 2px solid white; border-left: none; }
+        
+        .btn-1 { background: var(--tab-1); }
+        .btn-2 { background: var(--tab-2); }
+        .btn-3 { background: var(--tab-3); }
+        .btn-4 { background: var(--tab-4); }
+        .btn-5 { background: var(--tab-5); }
+        .btn-6 { background: var(--tab-6); color: white; }
 
-        /* 5. ELEMENTS WITHIN PAGES */
-        .entry-image {
-            width: 100%;
-            height: 200px;
-            background: #eee;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            border: 5px solid white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-style: italic;
-            color: #999;
-            background-size: cover;
-            background-position: center;
+        /* Decorations */
+        .tape {
+            position: absolute; top: -10px; left: 50%;
+            transform: translateX(-50%) rotate(2deg);
+            width: 100px; height: 30px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px dashed rgba(0,0,0,0.1); backdrop-filter: blur(2px);
         }
-
-        .video-container {
-            margin-top: 20px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .poem-box {
-            font-family: 'Caveat', cursive;
-            font-size: 1.5rem;
-            line-height: 2rem;
-            text-align: center;
-            padding: 20px;
-            background: rgba(255, 173, 173, 0.1);
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        /* Animations */
-        @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-
     </style>
 </head>
 <body>
 
     <div class="greeting-overlay">
-        <h1>hello...</h1>
+        <h1>Happy 10th!</h1>
     </div>
 
-    <!-- STAGE 1: ANNIVERSARY GIFT -->
-    <div id="anniversary-screen">
-        <div class="wrapped-book" onclick="openLetter()">
-            <div class="anniversary-tag">10th Month ✨</div>
-        </div>
-        
-        <div class="letter-modal" id="letter">
-            <h2 style="font-family: 'Caveat', cursive; font-size: 2.5rem; margin-top:0;">Happy 10 months to us!</h2>
-            <p>I can hardly believe how fast these months have gone by. Looking back, I feel so happy and grateful for every little moment we’ve shared. The laughter, the quiet talks, the times we’ve been a little unsure but held on anyway. Even in the moments when I felt fragile or nervous, your understanding and patience have always been my anchor. You’ve made it so easy for me to feel safe, to trust, and to love without holding back, and I can’t thank you enough for that.</p>
-            <p>Some people say the number 10 represents balance, a kind of completion, and a step toward something bigger. To me, it feels like that in the sweetest way. These ten months aren’t just numbers, they’re a little celebration of everything we’ve built together, of all the love, care, and patience we’ve shared, and of the ways we’ve grown side by side...</p>
-            <p>I can’t wait for everything still ahead, the mornings, the nights, the little memories and surprises good or bad yet to come. Thank you for being mine, for understanding me, and for loving me through it all. Here’s to us, to our ten months, and to every moment we’ll share after this. I love you so much, more than words can say, and I always will.</p>
-            <button class="proceed-btn" onclick="startJournal()">Proceed to Journal →</button>
-        </div>
-    </div>
+    <h1 class="main-header" id="header-text">What will you read first?</h1>
 
-    <!-- STAGE 2: MAIN JOURNAL -->
-    <div id="main-journal">
-        <h1 class="main-header" id="header-text">What will you read first?</h1>
-        
-        <div class="book">
-            <div class="content-area">
-                
-                <!-- Entry 1: Holidays -->
-                <div class="page active" id="page-1">
-                    <!-- ADD IMAGE LINK IN THE STYLE BELOW -->
-                    <div class="entry-image" style="background-image: url('YOUR_IMAGE_URL_HERE');">
-                        [Click to change Holiday Photo]
+    <div class="book-container">
+        <!-- THE BOOK -->
+        <div class="book closed" id="myBook" onclick="openBook()">
+            <!-- Cover -->
+            <div class="cover">
+                <div class="cover-title">Our 10 Months<br>Journal</div>
+            </div>
+
+            <!-- Inside Pages -->
+            <div class="inner-paper">
+                <div class="tape"></div>
+
+                <!-- Initial Page -->
+                <div class="page-content active" id="page-hello">
+                    <div class="hello-page">
+                        <h2>Hello! :333</h2>
+                        <p>Click a tab on the right to start reading...</p>
                     </div>
+                </div>
+
+                <!-- Anniversary Entry (The First Message) -->
+                <div class="page-content" id="page-message">
+                    <h2 style="font-family: 'Caveat', cursive;">Happy 10 Months!</h2>
+                    <p>I can hardly believe how fast these months have gone by. Looking back, I feel so happy and grateful for every little moment we’ve shared. The laughter, the quiet talks, the times we’ve been a little unsure but held on anyway...</p>
+                    <p>Some people say the number 10 represents balance, a kind of completion, and a step toward something bigger. To me, it feels like that in the sweetest way. These ten months aren’t just numbers, they’re a little celebration of everything we’ve built together.</p>
+                </div>
+
+                <!-- Holidays -->
+                <div class="page-content" id="page-holidays">
+                    <div class="entry-image" style="background-image: url('YOUR_IMAGE_LINK');">Holiday Image Placeholder</div>
                     <h2 style="font-family: 'Caveat', cursive;">Holidays</h2>
                     <p>Our first Christmas together is something I find myself thinking about over and over again, and every time I do, my heart feels full. I never really realized how special Christmas could be until I got to experience it with you...</p>
-                    <p>Seeing you there with my family, singing, laughing, and slowly settling in made me so happy. It meant more to me than I can explain to see you included and treated like you belonged, because to me, you already do.</p>
-                    <p>When New Year’s came around and we were not together, I realized just how much you had already become a part of my heart... You made my Christmas unforgettable, and you made my New Year feel meaningful even from a distance.</p>
+                    <p>Watching you in your own space, with your own family, so comfortable and so yourself. Watching that made me fall for you even more.</p>
                 </div>
 
-                <!-- Entry 2: Missing You -->
-                <div class="page" id="page-2">
-                    <h2 style="font-family: 'Caveat', cursive;">Missing You Part 3</h2>
-                    <p>It has been some time since I last saw you. After Christmas, and even now, I find myself missing you more than I thought possible. I miss seeing you, holding you, just being near you...</p>
-                    <p>Now that school has started, I feel it even more. My friends talk about their lovers, their little moments and shared stories, and I find myself silently thinking of you, wishing I could share those same little remarks and jokes about you if I had the chance.</p>
+                <!-- Missing You -->
+                <div class="page-content" id="page-missing">
+                    <h2 style="font-family: 'Caveat', cursive;">Missing You</h2>
+                    <p>It has been some time since I last saw you. After Christmas, and even now, I find myself missing you more than I thought possible. I miss seeing you, holding you, just being near you.</p>
+                    <p>Missing you has become a quiet, persistent companion, and even though it sometimes hurts, it reminds me just how much you mean to me.</p>
                 </div>
 
-                <!-- Entry 3: Understand -->
-                <div class="page" id="page-3">
-                    <div class="entry-image" style="background-image: url('YOUR_IMAGE_URL_HERE');">
-                        [Click to change Understand Photo]
-                    </div>
+                <!-- Understand -->
+                <div class="page-content" id="page-understand">
+                    <div class="entry-image" style="background-image: url('YOUR_IMAGE_LINK');">Understand Image Placeholder</div>
                     <h2 style="font-family: 'Caveat', cursive;">Understand</h2>
-                    <p>I want you to know how truly grateful I am for your patience with me, especially considering how sensitive this year has been for us. Ending one year and starting another in such a fragile place was not easy, and yet you stayed gentle with me through it all...</p>
-                    <p>After our last talk, I felt something shift inside me. For the first time in a long while, I felt like I could loosen the chain around my neck, the weight of my fears, and allow myself to fully love again.</p>
+                    <p>I want you to know how truly grateful I am for your patience with me, especially considering how sensitive this year has been for us. Ending one year and starting another in such a fragile place was not easy, and yet you stayed gentle with me through it all.</p>
+                    <p>Thank you for being my constant support, for never growing tired of me even when I falter.</p>
                 </div>
 
-                <!-- Entry 4: Poetry -->
-                <div class="page" id="page-4">
-                    <h2 style="font-family: 'Caveat', cursive;">With You, Always</h2>
-                    <div class="poem-box">
-                        Even in the quiet, I feel you near,<br>
-                        A gentle heartbeat I hold dear.<br>
-                        Through every worry, every little fear,<br>
-                        Your love whispers softly, “I am here.”<br><br>
-                        Thank you for holding me when I shake,<br>
-                        For loving me even when I break.<br>
-                        I am yours, completely, and I always will be, my love.
-                    </div>
-                </div>
-
-                <!-- Entry 5: Poem & Video -->
-                <div class="page" id="page-5">
+                <!-- Melody (Poem + Video) -->
+                <div class="page-content" id="page-melody">
                     <h2 style="font-family: 'Caveat', cursive;">Our Melody</h2>
-                    <div class="poem-box" style="background:none; border-left: 4px solid var(--tab-5); text-align: left;">
+                    <div class="poem-box">
                         Some days feel quieter than they should,<br>
                         like laughter forgot the way back home.<br>
                         The world still moves, but something’s missing<br>
                         every melody feels unfinished on its own.<br><br>
                         I try to pretend I’m doing just fine,<br>
-                        but honestly, I cant smile without you.
+                        but honestly, I cant smile without you
                     </div>
-                    <div class="video-container">
-                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/S_8S_f7f9-8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <div style="border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/S_8S_f7f9-8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
 
+                <!-- Always (Poem) -->
+                <div class="page-content" id="page-always">
+                    <h2 style="font-family: 'Caveat', cursive;">With You, Always</h2>
+                    <div class="poem-box" style="text-align: center;">
+                        Even in the quiet, I feel you near,<br>
+                        A gentle heartbeat I hold dear.<br>
+                        Through every worry, every little fear,<br>
+                        Your love whispers softly, “I am here.”<br><br>
+                        Now my heart is free to bloom,<br>
+                        No longer shadowed, no longer gloom.<br>
+                        I am yours, completely, and I always will be, my love.
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <!-- TAB NAVIGATION -->
-            <div class="tabs-container">
-                <button class="tab-btn btn-1 active" onclick="openPage(event, 'page-1', 'Holidays')" onmouseenter="peekTitle('Holidays')" onmouseleave="revertTitle()">
-                    <i class="fa-solid fa-holly-berry"></i><span class="tab-label">Holidays</span>
-                </button>
-                <button class="tab-btn btn-2" onclick="openPage(event, 'page-2', 'Missing You')" onmouseenter="peekTitle('Missing You')" onmouseleave="revertTitle()">
-                    <i class="fa-solid fa-heart-crack"></i><span class="tab-label">Missing</span>
-                </button>
-                <button class="tab-btn btn-3" onclick="openPage(event, 'page-3', 'Understand')" onmouseenter="peekTitle('Understand')" onmouseleave="revertTitle()">
-                    <i class="fa-solid fa-hand-holding-heart"></i><span class="tab-label">Understand</span>
-                </button>
-                <button class="tab-btn btn-4" onclick="openPage(event, 'page-4', 'With You Always')" onmouseenter="peekTitle('With You Always')" onmouseleave="revertTitle()">
-                    <i class="fa-solid fa-feather"></i><span class="tab-label">Always</span>
-                </button>
-                <button class="tab-btn btn-5" onclick="openPage(event, 'page-5', 'Our Melody')" onmouseenter="peekTitle('Our Melody')" onmouseleave="revertTitle()">
-                    <i class="fa-solid fa-music"></i><span class="tab-label">Melody</span>
-                </button>
-            </div>
+        <!-- TABS OUTWARD -->
+        <div class="tabs-container">
+            <button class="tab-btn btn-6" onclick="showPage(event, 'page-message', '10th Message')" onmouseenter="peekTitle('10th Message')" onmouseleave="revertTitle()">
+                <i class="fa-solid fa-star"></i><span class="tab-label">10th</span>
+            </button>
+            <button class="tab-btn btn-1" onclick="showPage(event, 'page-holidays', 'Holidays')" onmouseenter="peekTitle('Holidays')" onmouseleave="revertTitle()">
+                <i class="fa-solid fa-gift"></i><span class="tab-label">Holidays</span>
+            </button>
+            <button class="tab-btn btn-2" onclick="showPage(event, 'page-missing', 'Missing You')" onmouseenter="peekTitle('Missing You')" onmouseleave="revertTitle()">
+                <i class="fa-solid fa-heart-pulse"></i><span class="tab-label">Missing</span>
+            </button>
+            <button class="tab-btn btn-3" onclick="showPage(event, 'page-understand', 'Understand')" onmouseenter="peekTitle('Understand')" onmouseleave="revertTitle()">
+                <i class="fa-solid fa-leaf"></i><span class="tab-label">Understand</span>
+            </button>
+            <button class="tab-btn btn-4" onclick="showPage(event, 'page-always', 'Always')" onmouseenter="peekTitle('Always')" onmouseleave="revertTitle()">
+                <i class="fa-solid fa-feather"></i><span class="tab-label">Always</span>
+            </button>
+            <button class="tab-btn btn-5" onclick="showPage(event, 'page-melody', 'Our Melody')" onmouseenter="peekTitle('Our Melody')" onmouseleave="revertTitle()">
+                <i class="fa-solid fa-music"></i><span class="tab-label">Melody</span>
+            </button>
         </div>
     </div>
 
@@ -360,18 +322,17 @@
         let currentPrompt = "What will you read first?";
         const header = document.getElementById('header-text');
 
-        function openLetter() {
-            document.getElementById('letter').classList.add('open');
-        }
-
-        function startJournal() {
-            document.getElementById('anniversary-screen').style.display = 'none';
-            document.getElementById('main-journal').style.display = 'flex';
+        function openBook() {
+            const book = document.getElementById('myBook');
+            if (book.classList.contains('closed')) {
+                book.classList.remove('closed');
+                book.classList.add('open');
+            }
         }
 
         function peekTitle(title) {
             header.innerText = title;
-            header.style.color = "var(--tab-1)";
+            header.style.color = "var(--tab-6)";
         }
 
         function revertTitle() {
@@ -379,11 +340,12 @@
             header.style.color = "var(--text-dark)";
         }
 
-        function openPage(evt, pageId, title) {
+        function showPage(evt, pageId, title) {
+            evt.stopPropagation(); // Prevents click from hitting the book
             currentPrompt = "What will you read next?";
             header.innerText = currentPrompt;
-            
-            const pages = document.querySelectorAll('.page');
+
+            const pages = document.querySelectorAll('.page-content');
             pages.forEach(p => p.classList.remove('active'));
 
             const buttons = document.querySelectorAll('.tab-btn');
