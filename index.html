@@ -3,204 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Aesthetic Journal</title>
-    <!-- Importing a cute font -->
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+    <title>My Aesthetic Scrapbook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS Variables for easy aesthetic changes */
         :root {
-            --bg-color: #fdf6f0;
-            --accent-pink: #ffcad4;
-            --accent-purple: #b28dff;
-            --accent-blue: #a0e7e5;
-            --accent-green: #b4f8c8;
-            --accent-yellow: #fbe7c6;
-            --text-color: #5d576b;
-            --white: #ffffff;
+            --bg-color: #f0ebe3;
+            --paper-color: #fffdf7;
+            --spine-color: #d1ccc0;
+            --tab-1: #ffadad;
+            --tab-2: #ffd6a5;
+            --tab-3: #fdffb6;
+            --tab-4: #caffbf;
+            --tab-5: #a0c4ff;
+            --text-dark: #4a4a4a;
         }
+
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
-            padding: 0;
-            font-family: 'Quicksand', sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-        }
-
-        /* 1. GREETING ANIMATION */
-        .greeting-screen {
-            height: 100vh;
+            font-family: 'Quicksand', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: var(--white);
+            height: 100vh;
+            overflow: hidden;
+            color: var(--text-dark);
+        }
+
+        /* 1. GREETING ANIMATION */
+        .greeting {
             position: fixed;
-            width: 100%;
-            z-index: 100;
-            animation: fadeOut 1s ease-in-out 2.5s forwards;
+            inset: 0;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeOut 1s ease forwards 2s;
         }
 
-        .hello-text {
-            font-family: 'Pacifico', cursive;
+        .greeting h1 {
+            font-family: 'Caveat', cursive;
             font-size: 5rem;
-            color: var(--accent-purple);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1.5s ease-out forwards;
+            color: var(--tab-1);
+            animation: float 2s ease-in-out infinite;
         }
 
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
         @keyframes fadeOut {
             to { opacity: 0; visibility: hidden; }
         }
 
-        /* 2. MAIN LAYOUT */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            font-family: 'Pacifico', cursive;
-            color: var(--accent-purple);
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-        }
-
-        /* 3. INTERACTIVE BUTTONS */
-        .button-nav {
+        /* 2. THE BOOK CONTAINER */
+        .book {
+            width: 90%;
+            max-width: 700px;
+            height: 500px;
+            background: var(--paper-color);
+            border-radius: 10px 30px 30px 10px;
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 50px;
+            position: relative;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.1), 
+                        inset 15px 0 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
-        .journal-btn {
-            padding: 12px 25px;
+        /* The "Spine" of the book */
+        .book::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(0,0,0,0.05);
+            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+        }
+
+        /* 3. SIDE TABS (The 5 Buttons) */
+        .tabs {
+            position: absolute;
+            right: -50px;
+            top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tab-btn {
+            width: 80px;
+            height: 45px;
             border: none;
-            border-radius: 25px;
-            font-weight: 600;
+            border-radius: 0 10px 10px 0;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            font-size: 1rem;
-            color: var(--text-color);
-        }
-
-        /* Individual button colors */
-        .btn-daily { background-color: var(--accent-pink); }
-        .btn-dreams { background-color: var(--accent-purple); color: white; }
-        .btn-travel { background-color: var(--accent-blue); }
-        .btn-ideas { background-color: var(--accent-green); }
-        .btn-notes { background-color: var(--accent-yellow); }
-
-        .journal-btn:hover {
-            transform: scale(1.1) rotate(2deg);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-
-        .journal-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* 4. JOURNAL ENTRIES AREA */
-        .entries-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        .entry-card {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 20px;
-            text-align: left;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            border-left: 8px solid var(--accent-pink);
-            transition: 0.3s;
-        }
-
-        .entry-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .entry-date {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
             font-size: 0.8rem;
-            color: #aaa;
-            margin-bottom: 10px;
-            display: block;
+            transition: 0.3s;
+            text-align: left;
+            padding-left: 15px;
+            box-shadow: 5px 2px 10px rgba(0,0,0,0.05);
         }
 
-        .entry-card h3 {
-            margin: 0 0 10px 0;
-            color: var(--accent-purple);
+        .tab-btn:hover { padding-left: 25px; width: 90px; }
+        .tab-btn.active { width: 100px; padding-left: 30px; font-weight: bold; }
+
+        .btn-1 { background: var(--tab-1); }
+        .btn-2 { background: var(--tab-2); }
+        .btn-3 { background: var(--tab-3); }
+        .btn-4 { background: var(--tab-4); }
+        .btn-5 { background: var(--tab-5); }
+
+        /* 4. PAGES CONTENT */
+        .content-area {
+            flex: 1;
+            padding: 40px 60px;
+            overflow-y: auto;
+            position: relative;
         }
 
-        .entry-card p {
-            line-height: 1.6;
+        /* Notebook Paper Lines */
+        .page {
+            display: none;
+            animation: pageFlip 0.5s ease;
+            background-image: linear-gradient(#e5e5e5 1px, transparent 1px);
+            background-size: 100% 2.5rem;
+            line-height: 2.5rem;
+        }
+
+        .page.active { display: block; }
+
+        .page h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 2.5rem;
             margin: 0;
+            color: #555;
+            line-height: 3rem;
         }
 
-        /* Simple decorative circles */
-        .decoration {
-            position: fixed;
-            border-radius: 50%;
-            z-index: -1;
-            filter: blur(50px);
-            opacity: 0.5;
+        .page p {
+            font-size: 1.1rem;
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
+            color: #666;
         }
-        .circle-1 { width: 300px; height: 300px; background: var(--accent-pink); top: -100px; left: -100px; }
-        .circle-2 { width: 200px; height: 200px; background: var(--accent-blue); bottom: 10%; right: -50px; }
+
+        @keyframes pageFlip {
+            from { opacity: 0; transform: rotateY(-10deg) translateX(20px); }
+            to { opacity: 1; transform: rotateY(0) translateX(0); }
+        }
+
+        /* Decoration */
+        .washi-tape {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            width: 100px;
+            height: 30px;
+            background: rgba(160, 196, 255, 0.4);
+            transform: rotate(5deg);
+            opacity: 0.6;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Hello Greeting Animation -->
-    <div class="greeting-screen">
-        <div class="hello-text">Hello... ✨</div>
+    <!-- Greeting Animation -->
+    <div class="greeting">
+        <h1>hello...</h1>
     </div>
 
-    <!-- Background Decorations -->
-    <div class="decoration circle-1"></div>
-    <div class="decoration circle-2"></div>
-
-    <div class="container">
-        <header>
-            <h1>My Digital Journal</h1>
-        </header>
-
-        <!-- 5 Interactive Category Buttons -->
-        <nav class="button-nav">
-            <button class="journal-btn btn-daily">Daily Life</button>
-            <button class="journal-btn btn-dreams">Sweet Dreams</button>
-            <button class="journal-btn btn-travel">Travel Logs</button>
-            <button class="journal-btn btn-ideas">Big Ideas</button>
-            <button class="journal-btn btn-notes">Secret Notes</button>
-        </nav>
-
-        <!-- Sample Entry Area -->
-        <div class="entries-grid">
-            <div class="entry-card">
-                <span class="entry-date">January 12, 2026</span>
-                <h3>A Sunny Morning</h3>
-                <p>Today I started my new digital journal. The colors feel so peaceful! I want to write here every morning while drinking my matcha tea...</p>
+    <!-- The Scrapbook -->
+    <div class="book">
+        <div class="washi-tape"></div>
+        
+        <div class="content-area">
+            
+            <!-- Entry 1 -->
+            <div class="page active" id="page-1">
+                <h2>Daily Gratitude</h2>
+                <p>Today was a lovely day. I drank a warm latte and watched the clouds move slowly. I am grateful for the quiet moments and the soft aesthetic of this new journal.</p>
+                <p>Note to self: Stay cozy.</p>
             </div>
 
-            <div class="entry-card" style="border-left-color: var(--accent-blue);">
-                <span class="entry-date">January 11, 2026</span>
-                <h3>Starry Night Thoughts</h3>
-                <p>Saw the moon tonight and it reminded me of that trip to the seaside. I should definitely plan another trip soon.</p>
+            <!-- Entry 2 -->
+            <div class="page" id="page-2">
+                <h2>Dream Log</h2>
+                <p>I dreamed I was walking through a forest where the leaves were made of velvet. Everything was pastel pink. I felt so light, almost like I was floating above the grass.</p>
             </div>
+
+            <!-- Entry 3 -->
+            <div class="page" id="page-3">
+                <h2>Travel Bucket List</h2>
+                <p>1. Kyoto in the Spring (Cherry Blossoms)<br>
+                2. A small cottage in Switzerland<br>
+                3. The library cafes in Seoul<br>
+                4. Sunset in Santorini</p>
+            </div>
+
+            <!-- Entry 4 -->
+            <div class="page" id="page-4">
+                <h2>Midnight Ideas</h2>
+                <p>Maybe I should start a garden? Just small succulents and some lavender on the windowsill. The purple would look so pretty against the morning light.</p>
+            </div>
+
+            <!-- Entry 5 -->
+            <div class="page" id="page-5">
+                <h2>Self Affirmations</h2>
+                <p>I am doing my best, and that is enough.<br>
+                My creativity has no limits.<br>
+                I deserve peace and beautiful things.<br>
+                Today is a fresh start.</p>
+            </div>
+
+        </div>
+
+        <!-- The 5 Interactive Tabs -->
+        <div class="tabs">
+            <button class="tab-btn btn-1 active" onclick="openPage(event, 'page-1')">Daily</button>
+            <button class="tab-btn btn-2" onclick="openPage(event, 'page-2')">Dreams</button>
+            <button class="tab-btn btn-3" onclick="openPage(event, 'page-3')">Travel</button>
+            <button class="tab-btn btn-4" onclick="openPage(event, 'page-4')">Ideas</button>
+            <button class="tab-btn btn-5" onclick="openPage(event, 'page-5')">Me</button>
         </div>
     </div>
 
+    <script>
+        function openPage(evt, pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show the current page and add active class to button
+            document.getElementById(pageId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+    </script>
 </body>
 </html>
